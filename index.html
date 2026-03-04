@@ -5,15 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pacific Tide – Games</title>
   <script src="https://unpkg.com/@ruffle-rs/ruffle" defer></script>
-  <script src="/uv/uv.bundle.js"></script>
-  <script src="/uv/uv.config.js"></script>
-  <script>
-    // Register Ultraviolet service worker
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/uv/uv.sw.js", { scope: "/uv/service/" })
-        .catch(e => console.warn("UV SW registration failed:", e));
-    }
-  </script>
+  
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
