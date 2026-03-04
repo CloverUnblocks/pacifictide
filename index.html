@@ -474,7 +474,7 @@
 </section>
 
 <!-- PROXY -->
-<div class="proxy-section">
+<div class="proxy-section" id="proxySection">
   <div class="proxy-bar">
     <div class="proxy-bar-icon">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0099cc" stroke-width="2.5" stroke-linecap="round">
@@ -486,11 +486,12 @@
     <input class="proxy-input" id="proxyInput" type="text" placeholder="Search or enter a URL..." autocomplete="off" spellcheck="false"/>
     <button class="proxy-go" id="proxyGo">GO</button>
   </div>
-  <div class="proxy-nav">
-    <button class="nav-btn active" id="homeBtn">&#127968; Home</button>
-    <button class="nav-btn" id="gamesBtn">&#127918; Games</button>
-    <button class="nav-btn" id="youtubeBtn">&#9654; YouTube</button>
-    <button class="nav-btn" id="googleBtn">&#128269; Google</button>
+
+  <div class="proxy-nav" id="homeNav" style="margin-top:12px;">
+    <button class="nav-btn active" id="homeBtn2">&#127968; Home</button>
+    <button class="nav-btn" id="gamesBtn2">&#127918; Games</button>
+    <button class="nav-btn" id="youtubeBtn2">&#9654; YouTube</button>
+    <button class="nav-btn" id="googleBtn2">&#128269; Google</button>
   </div>
 </div>
 
@@ -514,6 +515,12 @@
       <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
     </svg>
     <input class="game-search-input" id="gameSearch" type="text" placeholder="Search games..." autocomplete="off"/>
+  </div>
+  <div class="proxy-nav" id="siteNav" style="margin-bottom:18px;">
+    <button class="nav-btn active" id="homeBtn">&#127968; Home</button>
+    <button class="nav-btn active" id="gamesBtn">&#127918; Games</button>
+    <button class="nav-btn" id="youtubeBtn">&#9654; YouTube</button>
+    <button class="nav-btn" id="googleBtn">&#128269; Google</button>
   </div>
   <div class="game-grid" id="gameGrid"></div>
 </div>
@@ -861,6 +868,7 @@ function scramjetURL(input) {
   return "/scramjet/" + btoa(url);
 }
 function navigate(input) {
+  document.getElementById("proxySection").style.display = "";
   const proxied = scramjetURL(input);
   if (!proxied) return;
   const raw = input.trim().includes(".") && !input.includes(" ")
@@ -878,6 +886,7 @@ document.getElementById("proxyInput").addEventListener("keydown", e => { if (e.k
 function showGames() {
   document.getElementById("iframeWrap").classList.remove("visible");
   document.getElementById("gamesSection").classList.add("visible");
+  document.getElementById("proxySection").style.display = "none";
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
   document.getElementById("gamesBtn").classList.add("active");
   document.getElementById("proxyInput").value = "";
@@ -895,6 +904,7 @@ function navTo(url) {
 document.getElementById("homeBtn").addEventListener("click", function() {
   document.getElementById("iframeWrap").classList.remove("visible");
   document.getElementById("gamesSection").classList.remove("visible");
+  document.getElementById("proxySection").style.display = "";
   document.getElementById("proxyFrame").src = "";
   document.getElementById("proxyInput").value = "";
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
