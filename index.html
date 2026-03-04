@@ -484,8 +484,8 @@
     <button class="proxy-go" id="proxyGo">GO</button>
   </div>
   <div class="proxy-nav">
-    <button class="nav-btn active" id="gamesBtn">&#127918; Games</button>
-    <button class="nav-btn" id="homeBtn">&#127968; Home</button>
+    <button class="nav-btn active" id="homeBtn">&#127968; Home</button>
+    <button class="nav-btn" id="gamesBtn">&#127918; Games</button>
     <button class="nav-btn" id="youtubeBtn">&#9654; YouTube</button>
     <button class="nav-btn" id="googleBtn">&#128269; Google</button>
   </div>
@@ -505,7 +505,7 @@
 </div>
 
 <!-- GAMES -->
-<div class="games-section visible" id="gamesSection">
+<div class="games-section" id="gamesSection">
   <div class="game-search-wrap">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0099cc" stroke-width="2.5" stroke-linecap="round">
       <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -517,7 +517,7 @@
 
 <!-- FOOTER -->
 <footer>
-  &copy; 2025 Pacific Tide &nbsp;&middot;&nbsp;
+  &copy; 2026 Pacific Tide &nbsp;&middot;&nbsp;
   <a href="https://discord.gg/cjswQ7wAts" target="_blank">Join our Discord</a>
 </footer>
 
@@ -564,23 +564,23 @@ const GAMES = [
   {title:'Yume Nikki', url:'https://gn-math.github.io/yume-nikki', img:'https://cdn.akamai.steamstatic.com/steam/apps/650700/header.jpg'},
 ];
 
-function openInBlank(url, title) {
-  const overlay = document.getElementById('gameOverlay');
-  const frame = document.getElementById('gameFrame');
-  const titleEl = document.getElementById('overlayTitle');
-  const newTabBtn = document.getElementById('overlayNewTab');
-  frame.src = url;
-  titleEl.textContent = title || '';
-  newTabBtn.href = url;
-  overlay.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
 
 function makeCard(g) {
   const a = document.createElement("a");
   a.className = "game-card";
   a.href = "#";
-  a.addEventListener("click", e => { e.preventDefault(); openInBlank(g.url, g.title); });
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    const overlay = document.getElementById("gameOverlay");
+    const frame   = document.getElementById("gameFrame");
+    const titleEl = document.getElementById("overlayTitle");
+    const newTabBtn = document.getElementById("overlayNewTab");
+    frame.src = g.url;
+    titleEl.textContent = g.title;
+    newTabBtn.href = g.url;
+    overlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  });
   const img = document.createElement("img");
   img.src = g.img; img.alt = g.title; img.loading = "lazy";
   img.onerror = function() {
@@ -638,6 +638,7 @@ document.getElementById("proxyInput").addEventListener("keydown", e => { if (e.k
 function showGames() {
   document.getElementById("iframeWrap").classList.remove("visible");
   document.getElementById("gamesSection").classList.add("visible");
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
   document.getElementById("gamesBtn").classList.add("active");
   document.getElementById("proxyInput").value = "";
 }
@@ -656,7 +657,8 @@ document.getElementById("homeBtn").addEventListener("click", function() {
   document.getElementById("gamesSection").classList.remove("visible");
   document.getElementById("proxyFrame").src = "";
   document.getElementById("proxyInput").value = "";
-  document.getElementById("gamesBtn").classList.remove("active");
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("homeBtn").classList.add("active");
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 document.getElementById("youtubeBtn").addEventListener("click", () => navTo("https://www.youtube.com"));
