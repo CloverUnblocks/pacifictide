@@ -159,15 +159,29 @@
     }
     .iframe-wrap.visible { display: flex; flex-direction: column; }
     .iframe-toolbar {
-      background: var(--surface); border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+      background: #0d1a24; border-bottom: 1px solid rgba(0,153,204,0.2);
+      display: flex; align-items: center; gap: 10px; padding: 0 14px; height: 44px;
     }
-    .iframe-close {
-      width: 12px; height: 12px; border-radius: 50%;
-      background: #ff5f57; border: none; cursor: pointer; flex-shrink: 0;
-      transition: opacity .15s;
+    .proxy-traffic-lights {
+      display: flex; align-items: center; gap: 7px; flex-shrink: 0;
     }
-    .iframe-close:hover { opacity: .75; }
+    .ptl {
+      width: 13px; height: 13px; border-radius: 50%;
+      border: none; cursor: pointer; position: relative;
+      transition: filter .15s; flex-shrink: 0;
+    }
+    .ptl:hover { filter: brightness(1.2); }
+    .ptl:active { filter: brightness(.8); }
+    .ptl-red    { background: #ff5f57; }
+    .ptl-yellow { background: #febc2e; }
+    .ptl-green  { background: #28c840; }
+    .ptl span {
+      display: none; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 9px; font-weight: 900; color: rgba(0,0,0,0.5); line-height: 1;
+    }
+    .proxy-traffic-lights:hover .ptl span { display: block; }
+    .iframe-close { display: none; }
     .iframe-url {
       flex: 1; height: 28px;
       background: var(--bg); border: 1px solid var(--border);
@@ -282,22 +296,42 @@
       background: #000; flex-direction: column;
     }
     .overlay-bar {
-      height: 42px; background: #0a1520;
-      border-bottom: 1px solid rgba(0,153,204,0.3);
+      height: 44px; background: #0d1a24;
+      border-bottom: 1px solid rgba(0,153,204,0.2);
       display: flex; align-items: center; gap: 10px; padding: 0 14px; flex-shrink: 0;
     }
-    .overlay-close {
-      width: 14px; height: 14px; border-radius: 50%;
-      background: #ff5f57; border: none; cursor: pointer; flex-shrink: 0;
+    /* macOS traffic lights */
+    .traffic-lights {
+      display: flex; align-items: center; gap: 7px; flex-shrink: 0;
     }
-    .overlay-close:hover { opacity: .7; }
+    .tl {
+      width: 13px; height: 13px; border-radius: 50%;
+      border: none; cursor: pointer; position: relative;
+      transition: filter .15s;
+    }
+    .tl:hover { filter: brightness(1.2); }
+    .tl:active { filter: brightness(.8); }
+    .tl-red   { background: #ff5f57; }
+    .tl-yellow{ background: #febc2e; }
+    .tl-green { background: #28c840; }
+    .tl span {
+      display: none; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 9px; font-weight: 900; color: rgba(0,0,0,0.5);
+      line-height: 1;
+    }
+    .traffic-lights:hover .tl span { display: block; }
+    .overlay-divider {
+      width: 1px; height: 22px;
+      background: rgba(0,153,204,0.2); flex-shrink: 0;
+    }
     .overlay-home {
-      background: rgba(0,153,204,0.12); border: 1px solid rgba(0,153,204,0.3);
+      background: rgba(0,153,204,0.1); border: 1px solid rgba(0,153,204,0.25);
       border-radius: 6px; padding: 3px 12px;
       font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: .85rem;
       color: #0099cc; cursor: pointer; transition: background .15s, transform .12s;
     }
-    .overlay-home:hover { background: rgba(0,153,204,0.28); transform: scale(1.04); }
+    .overlay-home:hover { background: rgba(0,153,204,0.25); transform: scale(1.03); }
     .overlay-home:active { transform: scale(.97); }
     .overlay-title {
       font-family: 'Rajdhani', sans-serif; font-weight: 600;
@@ -368,7 +402,11 @@
 <!-- IFRAME -->
 <div class="iframe-wrap" id="iframeWrap">
   <div class="iframe-toolbar">
-    <button class="iframe-close" id="iframeClose" title="Close"></button>
+    <div class="proxy-traffic-lights">
+      <button class="ptl ptl-red"    id="iframeClose"   title="Close"><span>&#x2715;</span></button>
+      <button class="ptl ptl-yellow" id="proxyMin"       title="Minimize"><span>&#x2212;</span></button>
+      <button class="ptl ptl-green"  id="proxyFullscreen" title="Fullscreen"><span>&#x2B22;</span></button>
+    </div>
     <input class="iframe-url" id="iframeUrlBar" type="text" readonly/>
   </div>
   <iframe class="proxy-frame" id="proxyFrame" sandbox="allow-forms allow-scripts allow-same-origin allow-popups" allowfullscreen></iframe>
@@ -528,24 +566,43 @@ document.getElementById("googleBtn").addEventListener("click", () => navTo("http
 
 <div id="gameOverlay">
   <div class="overlay-bar">
-    <button class="overlay-close" id="overlayClose" title="Close"></button>
-    <button class="overlay-home" id="overlayHome" title="Home">&#127968; Home</button>
+    <div class="traffic-lights">
+      <button class="tl tl-red"    id="overlayClose"  title="Close"><span>&#x2715;</span></button>
+      <button class="tl tl-yellow" id="overlayMin"    title="Minimize"><span>&#x2212;</span></button>
+      <button class="tl tl-green"  id="overlayFull"   title="Fullscreen"><span>&#x2B22;</span></button>
+    </div>
+    <div class="overlay-divider"></div>
+    <button class="overlay-home" id="overlayHome">&#127968; Home</button>
     <span class="overlay-title" id="overlayTitle"></span>
     <a class="overlay-newtab" id="overlayNewTab" href="#" target="_blank">&#8599; New Tab</a>
   </div>
   <iframe id="gameFrame" allowfullscreen sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-pointer-lock"></iframe>
 </div>
 <script>
-document.getElementById('overlayClose').addEventListener('click', function() {
+function closeOverlay() {
   document.getElementById('gameFrame').src = '';
   document.getElementById('gameOverlay').style.display = 'none';
   document.body.style.overflow = '';
-});
+  if (document.fullscreenElement) document.exitFullscreen();
+}
+document.getElementById('overlayClose').addEventListener('click', closeOverlay);
+
 document.getElementById('overlayHome').addEventListener('click', function() {
-  document.getElementById('gameFrame').src = '';
-  document.getElementById('gameOverlay').style.display = 'none';
-  document.body.style.overflow = '';
+  closeOverlay();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Yellow = minimize (close overlay, keep page)
+document.getElementById('overlayMin').addEventListener('click', closeOverlay);
+
+// Green = true browser fullscreen
+document.getElementById('overlayFull').addEventListener('click', function() {
+  const overlay = document.getElementById('gameOverlay');
+  if (!document.fullscreenElement) {
+    overlay.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
 });
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') document.getElementById('overlayClose').click();
