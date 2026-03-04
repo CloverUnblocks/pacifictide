@@ -881,35 +881,23 @@ function navigate(input) {
   const raw = resolveURL(input);
   if (!raw) return;
   document.getElementById("iframeUrlBar").value = raw;
+  document.getElementById("iframeWrap").classList.add("visible");
+  document.getElementById("gamesSection").classList.remove("visible");
 
-  // Wait for SW to be ready then navigate
-  function doNavigate() {
-    if (typeof __uv$config !== "undefined" && navigator.serviceWorker.controller) {
-      const encoded = __uv$config.prefix + __uv$config.encodeUrl(raw);
-      document.getElementById("proxyFrame").src = encoded;
-      document.getElementById("iframeWrap").classList.add("visible");
-      document.getElementById("gamesSection").classList.remove("visible");
-    } else {
-      // SW not ready yet, wait and retry
-      setTimeout(doNavigate, 300);
-    }
+  if (typeof __uv$config === "undefined") {
+    document.getElementById("proxyFrame").srcdoc = "<html><body style='background:#0a1520;color:#5a8fa8;font-family:Rajdhani,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;flex-direction:column;gap:12px;font-size:1.1rem;'><div>&#9888; UV not loaded — make sure uv.bundle.js and uv.config.js are uploaded</div></body></html>";
+    return;
   }
 
-  // Register SW if not already done
+  const encoded = __uv$config.prefix + __uv$config.encodeUrl(raw);
+
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/uv/uv.sw.js", { scope: "/uv/service/" })
-      .then(() => {
-        // Give SW a moment to activate
-        setTimeout(doNavigate, 500);
-      })
-      .catch(() => {
-        // SW already registered or failed — try anyway
-        doNavigate();
+      .finally(() => {
+        document.getElementById("proxyFrame").src = encoded;
       });
   } else {
-    document.getElementById("proxyFrame").srcdoc = `<html><body style="background:#0a1520;color:#5a8fa8;font-family:Rajdhani,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;flex-direction:column;gap:12px;font-size:1.1rem;"><div>&#9888; Service Workers not supported in this browser</div></body></html>`;
-    document.getElementById("iframeWrap").classList.add("visible");
-    document.getElementById("gamesSection").classList.remove("visible");
+    document.getElementById("proxyFrame").src = encoded;
   }
 }
 document.getElementById("proxyGo").addEventListener("click", () => navigate(document.getElementById("proxyInput").value));
