@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pacific Tide – Games</title>
   <script src="https://unpkg.com/@ruffle-rs/ruffle" defer></script>
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
+  <script>
+    // Register Ultraviolet service worker
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/uv/uv.sw.js", { scope: "/uv/service/" })
+        .catch(e => console.warn("UV SW registration failed:", e));
+    }
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -859,25 +868,49 @@ document.getElementById("gameSearch").addEventListener("input", e => {
 });
 
 // Proxy
-function scramjetURL(input) {
+function resolveURL(input) {
   let url = input.trim();
   if (!url) return null;
   if (!url.includes(".") || url.includes(" "))
     url = "https://www.google.com/search?q=" + encodeURIComponent(url);
   else if (!/^https?:\/\//.test(url)) url = "https://" + url;
-  return "/scramjet/" + btoa(url);
+  return url;
 }
 function navigate(input) {
   document.getElementById("proxySection").style.display = "";
-  const proxied = scramjetURL(input);
-  if (!proxied) return;
-  const raw = input.trim().includes(".") && !input.includes(" ")
-    ? (input.startsWith("http") ? input : "https://" + input)
-    : "https://www.google.com/search?q=" + encodeURIComponent(input);
+  const raw = resolveURL(input);
+  if (!raw) return;
   document.getElementById("iframeUrlBar").value = raw;
-  document.getElementById("proxyFrame").src = proxied;
-  document.getElementById("iframeWrap").classList.add("visible");
-  document.getElementById("gamesSection").classList.remove("visible");
+
+  // Wait for SW to be ready then navigate
+  function doNavigate() {
+    if (typeof __uv$config !== "undefined" && navigator.serviceWorker.controller) {
+      const encoded = __uv$config.prefix + __uv$config.encodeUrl(raw);
+      document.getElementById("proxyFrame").src = encoded;
+      document.getElementById("iframeWrap").classList.add("visible");
+      document.getElementById("gamesSection").classList.remove("visible");
+    } else {
+      // SW not ready yet, wait and retry
+      setTimeout(doNavigate, 300);
+    }
+  }
+
+  // Register SW if not already done
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/uv/uv.sw.js", { scope: "/uv/service/" })
+      .then(() => {
+        // Give SW a moment to activate
+        setTimeout(doNavigate, 500);
+      })
+      .catch(() => {
+        // SW already registered or failed — try anyway
+        doNavigate();
+      });
+  } else {
+    document.getElementById("proxyFrame").srcdoc = `<html><body style="background:#0a1520;color:#5a8fa8;font-family:Rajdhani,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;flex-direction:column;gap:12px;font-size:1.1rem;"><div>&#9888; Service Workers not supported in this browser</div></body></html>`;
+    document.getElementById("iframeWrap").classList.add("visible");
+    document.getElementById("gamesSection").classList.remove("visible");
+  }
 }
 document.getElementById("proxyGo").addEventListener("click", () => navigate(document.getElementById("proxyInput").value));
 document.getElementById("proxyInput").addEventListener("keydown", e => { if (e.key === "Enter") navigate(document.getElementById("proxyInput").value); });
