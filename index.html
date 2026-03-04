@@ -871,9 +871,13 @@ function resolveURL(input) {
 function navigate(input) {
   const raw = resolveURL(input);
   if (!raw) return;
-  const proxyURL = "https://uv.holyubofficial.net/#!" + btoa(raw);
-  window.open(proxyURL, "_blank");
+  document.getElementById("iframeUrlBar").value = raw;
+  document.getElementById("proxyFrame").src = raw;
+  document.getElementById("iframeWrap").classList.add("visible");
+  document.getElementById("gamesSection").classList.remove("visible");
+  document.getElementById("proxySection").style.display = "";
 }
+
 function showGames() {
   document.getElementById("iframeWrap").classList.remove("visible");
   document.getElementById("gamesSection").classList.add("visible");
