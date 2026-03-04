@@ -869,62 +869,10 @@ function resolveURL(input) {
   return url;
 }
 function navigate(input) {
-  document.getElementById("proxySection").style.display = "";
   const raw = resolveURL(input);
   if (!raw) return;
-  document.getElementById("iframeUrlBar").value = raw;
-  document.getElementById("iframeWrap").classList.add("visible");
-  document.getElementById("gamesSection").classList.remove("visible");
-
-  if (typeof __uv$config === "undefined") {
-    document.getElementById("proxyFrame").srcdoc = "<html><body style='background:#0a1520;color:#5a8fa8;font-family:Rajdhani,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;flex-direction:column;gap:12px;font-size:1.1rem;'><div>&#9888; UV not loaded — make sure uv.bundle.js and uv.config.js are in the /uv/ folder</div></body></html>";
-    return;
-  }
-
-  const encoded = __uv$config.prefix + __uv$config.encodeUrl(raw);
-
-  if (!("serviceWorker" in navigator)) {
-    document.getElementById("proxyFrame").src = encoded;
-    return;
-  }
-
-  navigator.serviceWorker.register("/uv/uv.sw.js", { scope: "/uv/service/" })
-    .then(reg => {
-      const sw = reg.installing || reg.waiting || reg.active;
-      if (reg.active) {
-        // SW already active, load immediately
-        document.getElementById("proxyFrame").src = encoded;
-      } else {
-        // Wait for SW to activate then load
-        sw.addEventListener("statechange", function() {
-          if (sw.state === "activated") {
-            document.getElementById("proxyFrame").src = encoded;
-          }
-        });
-      }
-    })
-    .catch(() => {
-      // SW failed, try loading anyway
-      document.getElementById("proxyFrame").src = encoded;
-    });
-}
-document.getElementById("proxyGo").addEventListener("click", () => navigate(document.getElementById("proxyInput").value));
-document.getElementById("proxyInput").addEventListener("keydown", e => { if (e.key === "Enter") navigate(document.getElementById("proxyInput").value); });
-
-function setActiveNav(label) {
-  document.querySelectorAll(".nav-btn").forEach(b => {
-    b.classList.toggle("active", b.textContent.trim().toLowerCase().includes(label));
-  });
-}
-function doHome() {
-  document.getElementById("iframeWrap").classList.remove("visible");
-  document.getElementById("gamesSection").classList.remove("visible");
-  document.getElementById("proxySection").style.display = "";
-  document.getElementById("ruffleContainer").innerHTML = "";
-  document.getElementById("proxyFrame").src = "";
-  document.getElementById("proxyInput").value = "";
-  setActiveNav("home");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  const proxyURL = "https://uv.holyubofficial.net/#!" + btoa(raw);
+  window.open(proxyURL, "_blank");
 }
 function showGames() {
   document.getElementById("iframeWrap").classList.remove("visible");
