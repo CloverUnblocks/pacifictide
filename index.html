@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pacific Tide – Games</title>
-  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -438,6 +438,8 @@
       width: 100%; height: 100%; border: none;
       pointer-events: none;
     }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -602,117 +604,143 @@ const GAMES = [
   {title: 'Toxic', url: 'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/Toxic.swf', swf: true},
   {title: 'Toxic 2', url: 'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/toxic-2.swf', swf: true},
   {title: 'Truck Loader 2', url: 'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/truck-loader-2.swf', swf: true},
-  {title: 'Avalanche', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Avalanche.swf', swf: true},
-  {title: 'Balls In Space', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Balls%20In%20Space.swf', swf: true},
-  {title: 'Billy And Mandy Spell Book', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Billy%20And%20Mandy%20Spell%20Book.swf', swf: true},
-  {title: 'Bullet Bill', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Bullet%20Bill.swf', swf: true},
-  {title: 'Bullet Bill 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Bullet%20Bill%202.swf', swf: true},
-  {title: 'Charlie The Duck', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Charlie%20The%20Duck.swf', swf: true},
-  {title: 'Cheese Quest 3D', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Cheese%20Quest%203D.swf', swf: true},
-  {title: 'Code Of The Samurai', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Code%20Of%20The%20Samurai.swf', swf: true},
-  {title: 'Crazy Nut', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Crazy%20Nut.swf', swf: true},
-  {title: 'Cube Field', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Cube%20Field.swf', swf: true},
-  {title: 'Deep Freeze', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Deep%20Freeze.swf', swf: true},
-  {title: 'Disorientation', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Disorientation.swf', swf: true},
-  {title: 'Electric Racing', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Electric%20Racing.swf', swf: true},
-  {title: 'Electricman 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Electricman%202.swf', swf: true},
-  {title: 'Fancy Pants', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Fancy%20Pants.swf', swf: true},
-  {title: 'Fancy Pants 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Fancy%20Pants%202.swf', swf: true},
-  {title: 'Flappy Bird (Flash Version)', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Flappy%20Bird%20%28Flash%20Version%29.swf', swf: true},
-  {title: 'Gangster Bros', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Gangster%20Bros.swf', swf: true},
-  {title: 'Heli Attack 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Heli%20Attack%202.swf', swf: true},
-  {title: 'Heli Attack 3', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Heli%20Attack%203.swf', swf: true},
-  {title: 'Helicopter', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Helicopter.swf', swf: true},
-  {title: 'Jump', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Jump.swf', swf: true},
-  {title: "Koopa's Revenge", url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Koopa%27s%20Revenge.swf', swf: true},
-  {title: "Koopa's Revenge 2", url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Koopa%27s%20Revenge%202.swf', swf: true},
-  {title: 'Level Editor', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Level%20Editor.swf', swf: true},
-  {title: 'Level Editor 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Level%20Editor%202.swf', swf: true},
-  {title: 'Line Game', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Line%20Game.swf', swf: true},
-  {title: 'Line Game (Orange Edition)', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Line%20Game%20%28Orange%20Edition%29.swf', swf: true},
-  {title: 'Luigi Castle On Fire', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Luigi%20Castle%20On%20Fire.swf', swf: true},
-  {title: "Luigi's Revenge", url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Luigi%27s%20Revenge.swf', swf: true},
-  {title: 'Maple Story', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Maple%20Story.swf', swf: true},
-  {title: 'Mario 3D Racing', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%203D%20Racing.swf', swf: true},
-  {title: 'Mario ATV', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20ATV.swf', swf: true},
-  {title: 'Mario Bros In Sonic World', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Bros%20In%20Sonic%20World.swf', swf: true},
-  {title: 'Mario Brother (Level 1)', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Brother%20%28Level%201%29.swf', swf: true},
-  {title: 'Mario Brother (Level 2)', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Brother%20%28Level%202%29.swf', swf: true},
-  {title: 'Mario Brother (Level 3)', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Brother%20%28Level%203%29.swf', swf: true},
-  {title: 'Mario Cart', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Cart.swf', swf: true},
-  {title: 'Mario Cart 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Cart%202.swf', swf: true},
-  {title: 'Mario Combat', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Combat.swf', swf: true},
-  {title: 'Mario Forever Flash', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Forever%20Flash.swf', swf: true},
-  {title: 'Mario Rush Arena', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Rush%20Arena.swf', swf: true},
-  {title: 'Mario Starcatcher 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Starcatcher%202.swf', swf: true},
-  {title: 'Mario Time Attack', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20Time%20Attack.swf', swf: true},
-  {title: 'Mario World Cape Glide', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%20World%20Cape%20Glide.swf', swf: true},
-  {title: "Mario's Adventure 2", url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Mario%27s%20Adventure%202.swf', swf: true},
-  {title: 'Pacxon', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Pacxon.swf', swf: true},
-  {title: 'Patty Manic', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Patty%20Manic.swf', swf: true},
-  {title: 'Planet Platformer', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Planet%20Platformer.swf', swf: true},
-  {title: 'Rambo Bros', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Rambo%20Bros.swf', swf: true},
-  {title: 'Snake Runner', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Snake%20Runner.swf', swf: true},
-  {title: 'Sonic Flash', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Sonic%20Flash.swf', swf: true},
-  {title: 'Sonic Lost In Mario World', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Sonic%20Lost%20In%20Mario%20World.swf', swf: true},
-  {title: 'Sonic Lost In Mario World 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Sonic%20Lost%20In%20Mario%20World%202.swf', swf: true},
-  {title: 'Super Mario 63', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%2063.swf', swf: true},
-  {title: 'Super Mario Bounce', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Bounce.swf', swf: true},
-  {title: 'Super Mario Bros Flash', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Bros%20Flash.swf', swf: true},
-  {title: 'Super Mario Cloud', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Cloud.swf', swf: true},
-  {title: 'Super Mario Combat', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Combat.swf', swf: true},
-  {title: 'Super Mario Crossover 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Crossover%202.swf', swf: true},
-  {title: 'Super Mario Crossover 3', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Crossover%203.swf', swf: true},
-  {title: 'Super Mario Flash 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Flash%202.swf', swf: true},
-  {title: 'Super Mario Flash 4', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Flash%204.swf', swf: true},
-  {title: 'Super Mario Halloween', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Halloween.swf', swf: true},
-  {title: 'Super Mario Rampage', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20Rampage.swf', swf: true},
-  {title: 'Super Mario World Flash', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20World%20Flash.swf', swf: true},
-  {title: 'Super Mario World Flash 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Mario%20World%20Flash%202.swf', swf: true},
-  {title: 'Super Sized Mario Bros', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Super%20Sized%20Mario%20Bros.swf', swf: true},
-  {title: 'SuperCar Road', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/SuperCar%20Road.swf', swf: true},
-  {title: 'Tetravalanche', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Tetravalanche.swf', swf: true},
-  {title: "Tetris'd", url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Tetris%27d.swf', swf: true},
-  {title: 'The Hardest Game Ever', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/The%20Hardest%20Game%20Ever.swf', swf: true},
-  {title: 'The Hardest Game Ever 4', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/The%20Hardest%20Game%20Ever%204.swf', swf: true},
-  {title: 'The Heist', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/The%20Heist.swf', swf: true},
-  {title: 'There Is Only One Level', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/There%20Is%20Only%20One%20Level.swf', swf: true},
-  {title: 'There Is Only One Level 2', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/There%20Is%20Only%20One%20Level%202.swf', swf: true},
-  {title: 'There Is Only One Level 3', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/There%20Is%20Only%20One%20Level%203.swf', swf: true},
-  {title: 'Tuper Tario Tros', url: 'https://archive.org/download/banned-from-equestria-daily-1.5/Tuper%20Tario%20Tros.swf', swf: true},
+  {title: 'Avalanche', url: './games/Avalanche.swf', swf: true},
+  {title: 'Balls In Space', url: './games/Balls In Space.swf', swf: true},
+  {title: 'Billy And Mandy Spell Book', url: './games/Billy And Mandy Spell Book.swf', swf: true},
+  {title: 'Bullet Bill', url: './games/Bullet Bill.swf', swf: true},
+  {title: 'Bullet Bill 2', url: './games/Bullet Bill 2.swf', swf: true},
+  {title: 'Charlie The Duck', url: './games/Charlie The Duck.swf', swf: true},
+  {title: 'Cheese Quest 3D', url: './games/Cheese Quest 3D.swf', swf: true},
+  {title: 'Code Of The Samurai', url: './games/Code Of The Samurai.swf', swf: true},
+  {title: 'Crazy Nut', url: './games/Crazy Nut.swf', swf: true},
+  {title: 'Cube Field', url: './games/Cube Field.swf', swf: true},
+  {title: 'Deep Freeze', url: './games/Deep Freeze.swf', swf: true},
+  {title: 'Disorientation', url: './games/Disorientation.swf', swf: true},
+  {title: 'Electric Racing', url: './games/Electric Racing.swf', swf: true},
+  {title: 'Electricman 2', url: './games/Electricman 2.swf', swf: true},
+  {title: 'Fancy Pants', url: './games/Fancy Pants.swf', swf: true},
+  {title: 'Fancy Pants 2', url: './games/Fancy Pants 2.swf', swf: true},
+  {title: 'Flappy Bird (Flash Version)', url: './games/Flappy Bird (Flash Version).swf', swf: true},
+  {title: 'Gangster Bros', url: './games/Gangster Bros.swf', swf: true},
+  {title: 'Heli Attack 2', url: './games/Heli Attack 2.swf', swf: true},
+  {title: 'Heli Attack 3', url: './games/Heli Attack 3.swf', swf: true},
+  {title: 'Helicopter', url: './games/Helicopter.swf', swf: true},
+  {title: 'Jump', url: './games/Jump.swf', swf: true},
+  {title: "Koopa's Revenge", url: './games/Koopas-Revenge.swf', swf: true},
+  {title: "Koopa's Revenge 2", url: './games/Koopas-Revenge-2.swf', swf: true},
+  {title: 'Level Editor', url: './games/Level Editor.swf', swf: true},
+  {title: 'Level Editor 2', url: './games/Level Editor 2.swf', swf: true},
+  {title: 'Line Game', url: './games/Line Game.swf', swf: true},
+  {title: 'Line Game (Orange Edition)', url: './games/Line Game (Orange Edition).swf', swf: true},
+  {title: 'Luigi Castle On Fire', url: './games/Luigi Castle On Fire.swf', swf: true},
+  {title: "Luigi's Revenge", url: './games/Luigis-Revenge.swf', swf: true},
+  {title: 'Maple Story', url: './games/Maple Story.swf', swf: true},
+  {title: 'Mario 3D Racing', url: './games/Mario 3D Racing.swf', swf: true},
+  {title: 'Mario ATV', url: './games/Mario ATV.swf', swf: true},
+  {title: 'Mario Bros In Sonic World', url: './games/Mario Bros In Sonic World.swf', swf: true},
+  {title: 'Mario Brother (Level 1)', url: './games/Mario Brother (Level 1).swf', swf: true},
+  {title: 'Mario Brother (Level 2)', url: './games/Mario Brother (Level 2).swf', swf: true},
+  {title: 'Mario Brother (Level 3)', url: './games/Mario Brother (Level 3).swf', swf: true},
+  {title: 'Mario Cart', url: './games/Mario Cart.swf', swf: true},
+  {title: 'Mario Cart 2', url: './games/Mario Cart 2.swf', swf: true},
+  {title: 'Mario Combat', url: './games/Mario Combat.swf', swf: true},
+  {title: 'Mario Forever Flash', url: './games/Mario Forever Flash.swf', swf: true},
+  {title: 'Mario Rush Arena', url: './games/Mario Rush Arena.swf', swf: true},
+  {title: 'Mario Starcatcher 2', url: './games/Mario Starcatcher 2.swf', swf: true},
+  {title: 'Mario Time Attack', url: './games/Mario Time Attack.swf', swf: true},
+  {title: 'Mario World Cape Glide', url: './games/Mario World Cape Glide.swf', swf: true},
+  {title: "Mario's Adventure 2", url: './games/Marios-Adventure-2.swf', swf: true},
+  {title: 'Pacxon', url: './games/Pacxon.swf', swf: true},
+  {title: 'Patty Manic', url: './games/Patty Manic.swf', swf: true},
+  {title: 'Planet Platformer', url: './games/Planet Platformer.swf', swf: true},
+  {title: 'Rambo Bros', url: './games/Rambo Bros.swf', swf: true},
+  {title: 'Snake Runner', url: './games/Snake Runner.swf', swf: true},
+  {title: 'Sonic Flash', url: './games/Sonic Flash.swf', swf: true},
+  {title: 'Sonic Lost In Mario World', url: './games/Sonic Lost In Mario World.swf', swf: true},
+  {title: 'Sonic Lost In Mario World 2', url: './games/Sonic Lost In Mario World 2.swf', swf: true},
+  {title: 'Super Mario 63', url: './games/Super Mario 63.swf', swf: true},
+  {title: 'Super Mario Bounce', url: './games/Super Mario Bounce.swf', swf: true},
+  {title: 'Super Mario Bros Flash', url: './games/Super Mario Bros Flash.swf', swf: true},
+  {title: 'Super Mario Cloud', url: './games/Super Mario Cloud.swf', swf: true},
+  {title: 'Super Mario Combat', url: './games/Super Mario Combat.swf', swf: true},
+  {title: 'Super Mario Crossover 2', url: './games/Super Mario Crossover 2.swf', swf: true},
+  {title: 'Super Mario Crossover 3', url: './games/Super Mario Crossover 3.swf', swf: true},
+  {title: 'Super Mario Flash 2', url: './games/Super Mario Flash 2.swf', swf: true},
+  {title: 'Super Mario Flash 4', url: './games/Super Mario Flash 4.swf', swf: true},
+  {title: 'Super Mario Halloween', url: './games/Super Mario Halloween.swf', swf: true},
+  {title: 'Super Mario Rampage', url: './games/Super Mario Rampage.swf', swf: true},
+  {title: 'Super Mario World Flash', url: './games/Super Mario World Flash.swf', swf: true},
+  {title: 'Super Mario World Flash 2', url: './games/Super Mario World Flash 2.swf', swf: true},
+  {title: 'Super Sized Mario Bros', url: './games/Super Sized Mario Bros.swf', swf: true},
+  {title: 'SuperCar Road', url: './games/SuperCar Road.swf', swf: true},
+  {title: 'Tetravalanche', url: './games/Tetravalanche.swf', swf: true},
+  {title: "Tetris'd", url: './games/Tetrisd.swf', swf: true},
+  {title: 'The Hardest Game Ever', url: './games/The Hardest Game Ever.swf', swf: true},
+  {title: 'The Hardest Game Ever 4', url: './games/The Hardest Game Ever 4.swf', swf: true},
+  {title: 'The Heist', url: './games/The Heist.swf', swf: true},
+  {title: 'There Is Only One Level', url: './games/There Is Only One Level.swf', swf: true},
+  {title: 'There Is Only One Level 2', url: './games/There Is Only One Level 2.swf', swf: true},
+  {title: 'There Is Only One Level 3', url: './games/There Is Only One Level 3.swf', swf: true},
+  {title: 'Tuper Tario Tros', url: './games/Tuper Tario Tros.swf', swf: true},
 ];
 
 
+function showError(container, msg) {
+  container.innerHTML = `<div style="color:#fff;display:flex;align-items:center;justify-content:center;height:100%;font-family:Rajdhani,sans-serif;font-size:1.1rem;flex-direction:column;gap:12px;padding:20px;text-align:center;">
+    <div style="font-size:2rem;">&#9888;</div>
+    <div>Could not load game</div>
+    <div style="font-size:.8rem;color:#5a8fa8;">${msg}</div>
+  </div>`;
+}
+
+function waitForRuffle(cb, tries) {
+  tries = tries || 0;
+  if (window.RufflePlayer && window.RufflePlayer.newest) {
+    cb();
+  } else if (tries < 40) {
+    setTimeout(() => waitForRuffle(cb, tries + 1), 150);
+  } else {
+    cb(true); // timeout
+  }
+}
+
 function launchGame(g) {
-  const overlay = document.getElementById("gameOverlay");
-  const titleEl = document.getElementById("overlayTitle");
+  const overlay   = document.getElementById("gameOverlay");
+  const titleEl   = document.getElementById("overlayTitle");
   const newTabBtn = document.getElementById("overlayNewTab");
   const container = document.getElementById("ruffleContainer");
+
   titleEl.textContent = g.title;
   newTabBtn.href = g.url;
-  container.innerHTML = "";
+  container.innerHTML = `<div style="color:#5a8fa8;display:flex;align-items:center;justify-content:center;height:100%;font-family:Rajdhani,sans-serif;font-size:1rem;gap:10px;">
+    <span style="display:inline-block;animation:spin 1s linear infinite;">&#9696;</span> Loading...
+  </div>`;
   overlay.style.display = "flex";
   document.body.style.overflow = "hidden";
 
-  if (g.swf) {
-    // Use Ruffle to run the SWF
-    const ruffle = window.RufflePlayer.newest();
-    const player = ruffle.createPlayer();
-    player.style.width = "100%";
-    player.style.height = "100%";
-    player.style.display = "block";
-    container.appendChild(player);
-    player.load({
-      url: g.url,
-      allowScriptAccess: "always",
-      backgroundColor: "#000000",
-    }).catch(err => {
-      container.innerHTML = `<div style="color:#fff;display:flex;align-items:center;justify-content:center;height:100%;font-family:Rajdhani,sans-serif;font-size:1.2rem;flex-direction:column;gap:12px;">
-        <div>&#9888; Could not load game</div>
-        <div style="font-size:.85rem;color:#5a8fa8;">${err.message || "Check your connection"}</div>
-      </div>`;
-    });
-  }
+  waitForRuffle(function(timedOut) {
+    if (timedOut || !window.RufflePlayer) {
+      showError(container, "Ruffle player failed to load. Check your connection.");
+      return;
+    }
+    try {
+      const ruffle = window.RufflePlayer.newest();
+      const player = ruffle.createPlayer();
+      player.style.width  = "100%";
+      player.style.height = "100%";
+      player.style.display = "block";
+      container.innerHTML = "";
+      container.appendChild(player);
+      player.load({
+        url: g.url,
+        allowScriptAccess: "always",
+        backgroundColor: "#000000",
+        autoplay: "on",
+      }).catch(err => showError(container, err.message || "Failed to fetch game file."));
+    } catch(e) {
+      showError(container, e.message);
+    }
+  });
 }
 
 // Generate a unique gradient thumbnail per game using canvas
