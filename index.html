@@ -487,6 +487,12 @@
     <button class="proxy-go" id="proxyGo">GO</button>
   </div>
 
+  <div class="proxy-nav" style="margin-top:12px;">
+    <button class="nav-btn active" onclick="doHome()">&#127968; Home</button>
+    <button class="nav-btn" onclick="showGames()">&#127918; Games</button>
+    <button class="nav-btn" onclick="navTo('https://www.youtube.com')">&#9654; YouTube</button>
+    <button class="nav-btn" onclick="navTo('https://www.google.com')">&#128269; Google</button>
+  </div>
 </div>
 
 <!-- IFRAME -->
@@ -872,11 +878,25 @@ function navigate(input) {
   document.getElementById("proxyFrame").src = proxied;
   document.getElementById("iframeWrap").classList.add("visible");
   document.getElementById("gamesSection").classList.remove("visible");
-  document.getElementById("gamesBtn").classList.remove("active");
 }
 document.getElementById("proxyGo").addEventListener("click", () => navigate(document.getElementById("proxyInput").value));
 document.getElementById("proxyInput").addEventListener("keydown", e => { if (e.key === "Enter") navigate(document.getElementById("proxyInput").value); });
 
+function setActiveNav(label) {
+  document.querySelectorAll(".nav-btn").forEach(b => {
+    b.classList.toggle("active", b.textContent.trim().toLowerCase().includes(label));
+  });
+}
+function doHome() {
+  document.getElementById("iframeWrap").classList.remove("visible");
+  document.getElementById("gamesSection").classList.remove("visible");
+  document.getElementById("proxySection").style.display = "";
+  document.getElementById("ruffleContainer").innerHTML = "";
+  document.getElementById("proxyFrame").src = "";
+  document.getElementById("proxyInput").value = "";
+  setActiveNav("home");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 function showGames() {
   document.getElementById("iframeWrap").classList.remove("visible");
   document.getElementById("gamesSection").classList.add("visible");
@@ -884,7 +904,7 @@ function showGames() {
   setActiveNav("games");
   document.getElementById("proxyInput").value = "";
 }
-document.getElementById("gamesBtn").addEventListener("click", showGames);
+
 document.getElementById("iframeClose").addEventListener("click", () => {
   document.getElementById("proxyFrame").src = "";
   showGames();
@@ -892,20 +912,11 @@ document.getElementById("iframeClose").addEventListener("click", () => {
 function navTo(url) {
   document.getElementById("proxyInput").value = url;
   navigate(url);
-  document.getElementById("gamesBtn").classList.remove("active");
 }
-document.getElementById("homeBtn").addEventListener("click", function() {
-  document.getElementById("iframeWrap").classList.remove("visible");
-  document.getElementById("gamesSection").classList.remove("visible");
-  document.getElementById("proxySection").style.display = "";
-  document.getElementById("proxyFrame").src = "";
-  document.getElementById("proxyInput").value = "";
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-  document.getElementById("homeBtn").classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-document.getElementById("youtubeBtn").addEventListener("click", () => navTo("https://www.youtube.com"));
-document.getElementById("googleBtn").addEventListener("click", () => navTo("https://www.google.com"));
+
+
+
+
 </script>
 
 <div id="gameOverlay">
