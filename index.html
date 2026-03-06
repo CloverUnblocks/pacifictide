@@ -6,7 +6,7 @@
   <title>Pacific Tide – Games</title>
   <script src="https://unpkg.com/@ruffle-rs/ruffle" defer></script>
   
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -40,13 +40,13 @@
     }
     .brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
     .brand-logo { height: 34px; width: auto; object-fit: contain; }
-    .brand-name { font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: 1.3rem; color: #000; letter-spacing: .04em; }
+    .brand-name { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1.3rem; color: #000; letter-spacing: .04em; }
     .topbar-right { display: flex; align-items: center; gap: 10px; }
     .discord-btn {
       display: flex; align-items: center; gap: 5px;
       background: rgba(0,0,0,0.18); border: none; border-radius: 16px;
       padding: 5px 12px; color: #000;
-      font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: .9rem;
+      font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: .9rem;
       cursor: pointer; text-decoration: none;
       transition: background .15s, transform .15s;
     }
@@ -87,7 +87,7 @@
       50%      { transform: translateY(-10px); }
     }
     .hero h1 {
-      font-family: "Rajdhani", sans-serif;
+      font-family: 'Quicksand', sans-serif;
       font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 700; letter-spacing: .08em; color: #fff;
     }
@@ -127,7 +127,7 @@
     .proxy-go {
       height: 50px; padding: 0 20px;
       background: var(--blue); border: none;
-      color: #000; font-family: "Rajdhani", sans-serif;
+      color: #000; font-family: 'Quicksand', sans-serif;
       font-weight: 700; font-size: .95rem; letter-spacing: .04em;
       cursor: pointer; flex-shrink: 0;
       transition: background .15s;
@@ -144,7 +144,7 @@
       background: transparent;
       border: 1.5px solid var(--border);
       border-radius: 8px; color: var(--muted);
-      font-family: "Rajdhani", sans-serif; font-weight: 600;
+      font-family: 'Quicksand', sans-serif; font-weight: 600;
       font-size: .9rem; letter-spacing: .04em; text-transform: uppercase;
       cursor: pointer;
       transition: border-color .15s, color .15s, background .15s, transform .12s;
@@ -258,7 +258,7 @@
     }
     .card-info { padding: 10px 12px 12px; }
     .card-title {
-      font-family: "Rajdhani", sans-serif;
+      font-family: 'Quicksand', sans-serif;
       font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 8px;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
@@ -266,7 +266,7 @@
       display: block; width: 100%;
       background: var(--blue); color: #000;
       border: none; border-radius: 7px; padding: 6px 0;
-      font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: .88rem;
+      font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: .88rem;
       cursor: pointer; transition: background .12s, transform .12s;
     }
     .card-play:hover { background: #1ab8e8; }
@@ -330,19 +330,19 @@
     .overlay-home {
       background: rgba(0,153,204,0.1); border: 1px solid rgba(0,153,204,0.25);
       border-radius: 6px; padding: 3px 12px;
-      font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: .85rem;
+      font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: .85rem;
       color: #0099cc; cursor: pointer; transition: background .15s, transform .12s;
     }
     .overlay-home:hover { background: rgba(0,153,204,0.25); transform: scale(1.03); }
     .overlay-home:active { transform: scale(.97); }
     .overlay-title {
-      font-family: 'Rajdhani', sans-serif; font-weight: 600;
+      font-family: 'Quicksand', sans-serif; font-weight: 600;
       font-size: .95rem; color: #5a8fa8; flex: 1;
     }
     .overlay-newtab {
       background: rgba(0,153,204,0.12); border: 1px solid rgba(0,153,204,0.3);
       border-radius: 6px; padding: 3px 10px;
-      font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: .8rem;
+      font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: .8rem;
       color: #0099cc; text-decoration: none; transition: background .15s;
     }
     .overlay-newtab:hover { background: rgba(0,153,204,0.28); }
@@ -371,21 +371,21 @@
     }
     .settings-tl:hover { filter: brightness(1.2); }
     .settings-title {
-      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-family: 'Quicksand', sans-serif; font-weight: 700;
       font-size: 1rem; color: var(--text); flex: 1; text-align: center;
       letter-spacing: .06em;
     }
     .settings-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
     .settings-row { display: flex; flex-direction: column; gap: 8px; }
     .settings-label {
-      font-family: 'Rajdhani', sans-serif; font-weight: 600;
+      font-family: 'Quicksand', sans-serif; font-weight: 600;
       font-size: .85rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase;
     }
     .settings-input {
       width: 100%; height: 42px;
       background: var(--surface); border: 1.5px solid var(--border);
       border-radius: 8px; padding: 0 14px;
-      color: var(--text); font-family: 'Nunito', sans-serif; font-size: .95rem;
+      color: var(--text); font-family: 'Poppins', sans-serif; font-size: .95rem;
       outline: none; transition: border-color .2s, box-shadow .2s;
     }
     .settings-input:focus {
@@ -393,7 +393,7 @@
     }
     .settings-save {
       height: 42px; background: var(--blue); border: none; border-radius: 8px;
-      color: #000; font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      color: #000; font-family: 'Quicksand', sans-serif; font-weight: 700;
       font-size: 1rem; letter-spacing: .04em; cursor: pointer;
       transition: background .15s, transform .12s;
     }
@@ -420,14 +420,14 @@
       z-index: 1;
     }
     .mini-player-title {
-      font-family: 'Rajdhani', sans-serif; font-weight: 600;
+      font-family: 'Quicksand', sans-serif; font-weight: 600;
       font-size: .8rem; color: #fff; flex: 1;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .mini-expand {
       background: rgba(255,255,255,0.15); border: none; border-radius: 4px;
       color: #fff; font-size: .7rem; padding: 2px 6px; cursor: pointer;
-      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-family: 'Quicksand', sans-serif; font-weight: 700;
       transition: background .15s;
     }
     .mini-expand:hover { background: rgba(255,255,255,0.3); }
@@ -489,10 +489,10 @@
   </div>
 
   <div class="proxy-nav" style="margin-top:12px;">
-    <button class="nav-btn active" onclick="doHome()">&#127968; Home</button>
-    <button class="nav-btn" onclick="showGames()">&#127918; Games</button>
-    <button class="nav-btn" onclick="navTo('https://www.youtube.com')">&#9654; YouTube</button>
-    <button class="nav-btn" onclick="navTo('https://www.google.com')">&#128269; Google</button>
+    <button class="nav-btn active" onclick="doHome()">Home</button>
+    <button class="nav-btn" onclick="showGames()">Games</button>
+    <button class="nav-btn" onclick="navTo('https://www.youtube.com')">YouTube</button>
+    <button class="nav-btn" onclick="navTo('https://www.google.com')">Google</button>
   </div>
 </div>
 
@@ -518,10 +518,10 @@
     <input class="game-search-input" id="gameSearch" type="text" placeholder="Search games..." autocomplete="off"/>
   </div>
   <div class="proxy-nav" id="siteNav" style="margin-bottom:18px;">
-    <button class="nav-btn" onclick="doHome()">&#127968; Home</button>
-    <button class="nav-btn active" onclick="showGames()">&#127918; Games</button>
-    <button class="nav-btn" onclick="navTo('https://www.youtube.com')">&#9654; YouTube</button>
-    <button class="nav-btn" onclick="navTo('https://www.google.com')">&#128269; Google</button>
+    <button class="nav-btn" onclick="doHome()">Home</button>
+    <button class="nav-btn active" onclick="showGames()">Games</button>
+    <button class="nav-btn" onclick="navTo('https://www.youtube.com')">YouTube</button>
+    <button class="nav-btn" onclick="navTo('https://www.google.com')">Google</button>
   </div>
   <div class="game-grid" id="gameGrid"></div>
 </div>
@@ -694,7 +694,7 @@ const GAMES = [
 
 
 function showError(container, msg) {
-  container.innerHTML = `<div style="color:#fff;display:flex;align-items:center;justify-content:center;height:100%;font-family:Rajdhani,sans-serif;font-size:1.1rem;flex-direction:column;gap:12px;padding:20px;text-align:center;">
+  container.innerHTML = `<div style="color:#fff;display:flex;align-items:center;justify-content:center;height:100%;font-family:'Quicksand', sans-serif;font-size:1.1rem;flex-direction:column;gap:12px;padding:20px;text-align:center;">
     <div style="font-size:2rem;">&#9888;</div>
     <div>Could not load game</div>
     <div style="font-size:.8rem;color:#5a8fa8;">${msg}</div>
@@ -720,7 +720,7 @@ function launchGame(g) {
 
   titleEl.textContent = g.title;
   newTabBtn.href = g.url;
-  container.innerHTML = `<div style="color:#5a8fa8;display:flex;align-items:center;justify-content:center;height:100%;font-family:Rajdhani,sans-serif;font-size:1rem;gap:10px;">
+  container.innerHTML = `<div style="color:#5a8fa8;display:flex;align-items:center;justify-content:center;height:100%;font-family:'Quicksand', sans-serif;font-size:1rem;gap:10px;">
     <span style="display:inline-block;animation:spin 1s linear infinite;">&#9696;</span> Loading...
   </div>`;
   overlay.style.display = "flex";
@@ -796,7 +796,7 @@ function makeThumb(title) {
 
   // Game title
   ctx.fillStyle = "rgba(255,255,255,0.92)";
-  ctx.font = "bold 18px Rajdhani, Arial";
+  ctx.font = "bold 18px 'Quicksand', Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   // Word wrap if needed
@@ -878,6 +878,20 @@ function navigate(input) {
   document.getElementById("proxySection").style.display = "";
 }
 
+function setActiveNav(label) {
+  document.querySelectorAll(".nav-btn").forEach(b => {
+    b.classList.toggle("active", b.textContent.trim().toLowerCase() === label.toLowerCase());
+  });
+}
+function doHome() {
+  document.getElementById("iframeWrap").classList.remove("visible");
+  document.getElementById("gamesSection").classList.remove("visible");
+  document.getElementById("proxySection").style.display = "";
+  document.getElementById("proxyFrame").src = "";
+  document.getElementById("proxyInput").value = "";
+  setActiveNav("home");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 function showGames() {
   document.getElementById("iframeWrap").classList.remove("visible");
   document.getElementById("gamesSection").classList.add("visible");
@@ -893,6 +907,8 @@ document.getElementById("iframeClose").addEventListener("click", () => {
 function navTo(url) {
   document.getElementById("proxyInput").value = url;
   navigate(url);
+  const label = url.includes("youtube") ? "youtube" : url.includes("google") ? "google" : "";
+  if (label) setActiveNav(label);
 }
 
 
@@ -904,11 +920,10 @@ function navTo(url) {
   <div class="overlay-bar">
     <div class="traffic-lights">
       <button class="tl tl-red"    id="overlayClose"  title="Close"><span>&#x2715;</span></button>
-      <button class="tl tl-yellow" id="overlayMin"    title="Minimize"><span>&#x2212;</span></button>
       <button class="tl tl-green"  id="overlayFull"   title="Fullscreen"><span>&#x2B22;</span></button>
     </div>
     <div class="overlay-divider"></div>
-    <button class="overlay-home" id="overlayHome">&#127968; Home</button>
+    <button class="overlay-home" id="overlayHome">Home</button>
     <span class="overlay-title" id="overlayTitle"></span>
     <a class="overlay-newtab" id="overlayNewTab" href="#" target="_blank">&#8599; New Tab</a>
   </div>
@@ -929,84 +944,7 @@ document.getElementById('overlayHome').addEventListener('click', function() {
 });
 
 // Yellow = minimize (close overlay, keep page)
-document.getElementById('overlayMin').addEventListener('click', closeOverlay);
 
-// Green = true browser fullscreen
-document.getElementById('overlayFull').addEventListener('click', function() {
-  const overlay = document.getElementById('gameOverlay');
-  if (!document.fullscreenElement) {
-    overlay.requestFullscreen().catch(() => {});
-  } else {
-    document.exitFullscreen();
-  }
-});
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') document.getElementById('overlayClose').click();
-});
-</script>
-
-<!-- SETTINGS PANEL -->
-<div class="settings-overlay" id="settingsOverlay">
-  <div class="settings-panel">
-    <div class="settings-titlebar">
-      <button class="settings-tl" id="settingsClose"></button>
-      <span class="settings-title">SETTINGS</span>
-      <span style="width:13px"></span>
-    </div>
-    <div class="settings-body">
-      <div class="settings-row">
-        <label class="settings-label">Tab Title</label>
-        <input class="settings-input" id="tabTitleInput" type="text" placeholder="Pacific Tide" maxlength="60"/>
-        <span class="settings-hint">Changes what appears on the browser tab</span>
-      </div>
-      <button class="settings-save" id="settingsSave">Save Changes</button>
-    </div>
-  </div>
-</div>
-
-<!-- MINI PLAYER -->
-<div class="mini-player" id="miniPlayer">
-  <div class="mini-player-bar">
-    <span class="mini-player-title" id="miniTitle"></span>
-    <button class="mini-expand" id="miniExpand">&#9974; Expand</button>
-    <button class="mini-close-btn" id="miniClose"></button>
-  </div>
-  <div class="mini-frame" id="miniFrame" style="background:#111;display:flex;align-items:center;justify-content:center;color:#5a8fa8;font-family:Rajdhani,sans-serif;font-size:.9rem;">&#9654; Minimized</div>
-</div>
-
-<script>
-// Settings
-const settingsOverlay = document.getElementById('settingsOverlay');
-document.querySelector('.gear-btn').addEventListener('click', () => {
-  settingsOverlay.classList.add('open');
-  document.getElementById('tabTitleInput').value = document.title === 'Pacific Tide – Games' ? '' : document.title;
-});
-document.getElementById('settingsClose').addEventListener('click', () => settingsOverlay.classList.remove('open'));
-settingsOverlay.addEventListener('click', e => { if (e.target === settingsOverlay) settingsOverlay.classList.remove('open'); });
-document.getElementById('settingsSave').addEventListener('click', () => {
-  const val = document.getElementById('tabTitleInput').value.trim();
-  document.title = val || 'Pacific Tide – Games';
-  settingsOverlay.classList.remove('open');
-});
-
-// Mini player (yellow button)
-const miniPlayer = document.getElementById('miniPlayer');
-const miniFrame  = document.getElementById('miniFrame');
-const miniTitle  = document.getElementById('miniTitle');
-
-// Override yellow btn for game overlay
-document.getElementById('overlayMin').addEventListener('click', function() {
-  const src   = document.getElementById('gameFrame').src;
-  const title = document.getElementById('overlayTitle').textContent;
-  if (!src) return;
-  miniFrame.src = src;
-  miniTitle.textContent = title;
-  miniPlayer.classList.add('visible');
-  // hide overlay
-  document.getElementById('ruffleContainer').innerHTML = '';
-  document.getElementById('gameOverlay').style.display = 'none';
-  document.body.style.overflow = '';
-}, true);
 
 // Override yellow btn for proxy
 document.getElementById('proxyMin').addEventListener('click', function() {
@@ -1040,5 +978,15 @@ document.getElementById('miniClose').addEventListener('click', function(e) {
   miniPlayer.classList.remove('visible');
 });
 </script>
+
+<!-- MINI PLAYER -->
+<div id="miniPlayer" class="mini-player">
+  <div class="mini-player-bar">
+    <span class="mini-title" id="miniTitle"></span>
+    <button id="miniExpand" title="Expand">&#x26F6;</button>
+    <button id="miniClose" title="Close">&#x2715;</button>
+  </div>
+  <div class="mini-frame" id="miniFrame" style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;color:#5a8fa8;font-size:.9rem;">&#9654; Minimized</div>
+</div>
 </body>
 </html>
