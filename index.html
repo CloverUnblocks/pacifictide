@@ -1041,8 +1041,8 @@ document.getElementById("miniPlayer").addEventListener("click", function() {
         prefix: "/scramjet/scramjet.html",
         files: {
           wasm: "/scramjet/scramjet.wasm.wasm",
-          worker: "/scramjet/scramjet.worker.js",
-          client: "/scramjet/scramjet.client.js",
+          worker: "/scramjet/scramjet.sync.js",
+          client: "/scramjet/scramjet.all.js",
         }
       });
       await controller.init();
@@ -1053,7 +1053,6 @@ document.getElementById("miniPlayer").addEventListener("click", function() {
       window._scramjetReady = true;
       console.log("Scramjet ready!");
     } else {
-      // Fallback - just mark as ready and use the SW directly
       window._scramjetReady = true;
       console.log("Scramjet SW ready (no controller)!");
     }
