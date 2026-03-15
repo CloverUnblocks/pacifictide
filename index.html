@@ -1024,27 +1024,39 @@ document.getElementById("miniPlayer").addEventListener("click", function() {
 (async function() {
   if (!("serviceWorker" in navigator)) {
     console.warn("Service workers not supported");
+    window._scramjetReady = false;
     return;
   }
   try {
+    // Register the service worker
     const reg = await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", {
       scope: "/"
     });
     console.log("Scramjet SW registered:", reg.scope);
-
-    // Wait for SW to be active
     await navigator.serviceWorker.ready;
 
-    // Set Wisp transport
-    const conn = new ScramjetServiceWorker();
-    await conn.init();
-    await BareMux.SetTransport("@mercuryworkshop/epoxy-transport/epoxy", {
-      wisp: "wss://proxy.pacifictide.online/wisp/"
-    });
-    console.log("Wisp transport set!");
-
-    // Override navigate to use Scramjet
-    window._scramjetReady = true;
+    // Wait for ScramjetController to be available
+    if (typeof ScramjetController !== "undefined") {
+      const controller = new ScramjetController({
+        prefix: "/scramjet/scramjet.html",
+        files: {
+          wasm: "/scramjet/scramjet.wasm.wasm",
+          worker: "/scramjet/scramjet.worker.js",
+          client: "/scramjet/scramjet.client.js",
+        }
+      });
+      await controller.init();
+      await controller.setTransport("/scramjet/scramjet.bundle.js", [{
+        wisp: "wss://proxy.pacifictide.online/wisp/"
+      }]);
+      window._scramjetController = controller;
+      window._scramjetReady = true;
+      console.log("Scramjet ready!");
+    } else {
+      // Fallback - just mark as ready and use the SW directly
+      window._scramjetReady = true;
+      console.log("Scramjet SW ready (no controller)!");
+    }
   } catch(e) {
     console.error("Scramjet init failed:", e);
     window._scramjetReady = false;
