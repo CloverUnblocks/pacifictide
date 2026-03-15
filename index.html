@@ -442,6 +442,7 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
+<script src="/scramjet/scramjet.bundle.js"></script>
 </head>
 <body>
 
@@ -872,7 +873,8 @@ function navigate(input) {
   const raw = resolveURL(input);
   if (!raw) return;
   document.getElementById("iframeUrlBar").value = raw;
-  document.getElementById("proxyFrame").src = raw;
+  const proxiedUrl = window._scramjetReady ? "/scramjet/scramjet.html#" + encodeURIComponent(raw) : raw;
+  document.getElementById("proxyFrame").src = proxiedUrl;
   document.getElementById("iframeWrap").classList.add("visible");
   document.getElementById("gamesSection").classList.remove("visible");
   document.getElementById("proxySection").style.display = "";
@@ -988,5 +990,29 @@ document.getElementById('miniClose').addEventListener('click', function(e) {
   </div>
   <div class="mini-frame" id="miniFrame" style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;color:#5a8fa8;font-size:.9rem;">&#9654; Minimized</div>
 </div>
+<script>
+(async function() {
+  if (!("serviceWorker" in navigator)) return;
+  try {
+    await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", { scope: "/" });
+    await navigator.serviceWorker.ready;
+    await BareMux.SetTransport("@mercuryworkshop/epoxy-transport/epoxy", { wisp: "wss://proxy.pacifictide.online/wisp/" });
+    window._scramjetReady = true;
+    console.log("Scramjet ready!");
+  } catch(e) { console.error("Scramjet failed:", e); }
+})();
+</script>
+<script>
+(async function() {
+  if (!("serviceWorker" in navigator)) return;
+  try {
+    await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", { scope: "/" });
+    await navigator.serviceWorker.ready;
+    await BareMux.SetTransport("@mercuryworkshop/epoxy-transport/epoxy", { wisp: "wss://proxy.pacifictide.online/wisp/" });
+    window._scramjetReady = true;
+    console.log("Scramjet ready!");
+  } catch(e) { console.error("Scramjet failed:", e); }
+})();
+</script>
 </body>
 </html>
