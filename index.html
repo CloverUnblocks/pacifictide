@@ -819,13 +819,32 @@ window.resolveURL = function resolveURL(input) {
   else if (!/^https?:\/\//.test(url)) url = "https://" + url;
   return url;
 }
-window.navigate = function navigate(input) {
+window.navigate = async function navigate(input) {
   const raw = resolveURL(input);
   if (!raw) return;
   document.getElementById("iframeUrlBar").value = raw;
-  document.getElementById("proxyFrame").src = "/scramjet/" + raw;
   document.getElementById("iframeWrap").classList.add("visible");
   document.getElementById("gamesSection").classList.remove("visible");
+  document.getElementById("heroSection").style.display = "none";
+  document.getElementById("topbarSearchWrap").style.display = "";
+  setActiveNav("");
+
+  if (!window._scramjetCtrl) {
+    const { ScramjetController } = $scramjetLoadController();
+    window._scramjetCtrl = new ScramjetController({
+      prefix: "/scramjet/",
+      files: {
+        wasm: "/scramjet/scramjet.wasm.wasm",
+        all: "/scramjet/scramjet.all.js",
+        sync: "/scramjet/scramjet.sync.js",
+      }
+    });
+    await window._scramjetCtrl.init();
+  }
+
+  const iframe = document.getElementById("proxyFrame");
+  const frame = window._scramjetCtrl.createFrame(iframe);
+  frame.go(raw);
 }
 
 // ── NAV (exposed globally for onclick handlers) ──
