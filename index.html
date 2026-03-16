@@ -1017,48 +1017,5 @@ document.getElementById("miniPlayer").addEventListener("click", function() {
 })();
 </script>
 
-<script>
-// ── Scramjet Service Worker + Wisp Transport ──
-(async function() {
-  if (!("serviceWorker" in navigator)) {
-    console.warn("Service workers not supported");
-    window._scramjetReady = false;
-    return;
-  }
-  try {
-    // Register the service worker
-    const reg = await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", {
-      scope: "/"
-    });
-    console.log("Scramjet SW registered:", reg.scope);
-    await navigator.serviceWorker.ready;
-
-    // Wait for ScramjetController to be available
-    if (typeof ScramjetController !== "undefined") {
-      const controller = new ScramjetController({
-        prefix: "/scramjet/scramjet.html",
-        files: {
-          wasm: "/scramjet/scramjet.wasm.wasm",
-          worker: "/scramjet/scramjet.sync.js",
-          client: "/scramjet/scramjet.all.js",
-        }
-      });
-      await controller.init();
-      await controller.setTransport("/scramjet/scramjet.bundle.js", [{
-        wisp: "wss://proxy.pacifictide.online/wisp/"
-      }]);
-      window._scramjetController = controller;
-      window._scramjetReady = true;
-      console.log("Scramjet ready!");
-    } else {
-      window._scramjetReady = true;
-      console.log("Scramjet SW ready (no controller)!");
-    }
-  } catch(e) {
-    console.error("Scramjet init failed:", e);
-    window._scramjetReady = false;
-  }
-})();
-</script>
 </body>
 </html>
