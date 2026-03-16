@@ -844,7 +844,7 @@ window.navigate = function navigate(input) {
   if (!raw) return;
   document.getElementById("iframeUrlBar").value = raw;
   // Use Scramjet if ready, otherwise fall back to direct iframe
-  const proxiedUrl = raw;
+  const proxiedUrl = "/scramjet/scramjet.html#" + encodeURIComponent(raw);
   document.getElementById("proxyFrame").src = proxiedUrl;
   document.getElementById("iframeWrap").classList.add("visible");
   document.getElementById("gamesSection").classList.remove("visible");
@@ -1014,6 +1014,21 @@ document.getElementById("miniPlayer").addEventListener("click", function() {
     requestAnimationFrame(draw);
   }
   draw();
+})();
+</script>
+
+<script>
+(async function() {
+  if (!("serviceWorker" in navigator)) return;
+  try {
+    await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", {
+      scope: "/scramjet/"
+    });
+    await navigator.serviceWorker.ready;
+    window._scramjetReady = true;
+  } catch(e) {
+    console.error("Scramjet failed:", e);
+  }
 })();
 </script>
 
