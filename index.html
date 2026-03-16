@@ -834,9 +834,9 @@ window.navigate = async function navigate(input) {
     window._scramjetCtrl = new ScramjetController({
       prefix: "/scramjet/",
       files: {
-        wasm: "/scramjet/scramjet.wasm.wasm",
-        all: "/scramjet/scramjet.all.js",
-        sync: "/scramjet/scramjet.sync.js",
+        wasm: "/scram/scramjet.wasm.wasm",
+        all: "/scram/scramjet.all.js",
+        sync: "/scram/scramjet.sync.js",
       }
     });
     await window._scramjetCtrl.init();
@@ -1009,46 +1009,30 @@ document.getElementById("miniPlayer").addEventListener("click", function() {
 })();
 </script>
 
-<script>
+<script type="module">
 // ── Scramjet Service Worker + Wisp Transport ──
+import { BareMuxConnection } from "/baremux/index.mjs";
+import { EpoxyClient } from "/epoxy/index.mjs";
+
 (async function() {
   if (!("serviceWorker" in navigator)) {
     console.warn("Service workers not supported");
-    window._scramjetReady = false;
     return;
   }
   try {
-    // Register the service worker
-    const reg = await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", {
-      scope: "/"
-    });
-    console.log("Scramjet SW registered:", reg.scope);
+    const reg = await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", { scope: "/" });
+    console.log("SW registered:", reg.scope);
     await navigator.serviceWorker.ready;
 
-    // Wait for ScramjetController to be available
-    if (typeof ScramjetController !== "undefined") {
-      const controller = new ScramjetController({
-        prefix: "/scramjet/scramjet.html",
-        files: {
-          wasm: "/scramjet/scramjet.wasm.wasm",
-          worker: "/scramjet/scramjet.sync.js",
-          client: "/scramjet/scramjet.all.js",
-        }
-      });
-      await controller.init();
-      await controller.setTransport("/scramjet/scramjet.bundle.js", [{
-        wisp: "wss://proxy.pacifictide.online/wisp/"
-      }]);
-      window._scramjetController = controller;
-      window._scramjetReady = true;
-      console.log("Scramjet ready!");
-    } else {
-      window._scramjetReady = true;
-      console.log("Scramjet SW ready (no controller)!");
-    }
+    // Set epoxy as the bare-mux transport
+    const conn = new BareMuxConnection("/baremux/index.mjs");
+    await conn.setTransport("/epoxy/index.mjs", [{ wisp: "wss://proxy.pacifictide.online/wisp/" }]);
+    console.log("Bare-mux transport set!");
+
+    window._scramjetReady = true;
+    console.log("Scramjet ready!");
   } catch(e) {
     console.error("Scramjet init failed:", e);
-    window._scramjetReady = false;
   }
 })();
 </script>
