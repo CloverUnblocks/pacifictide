@@ -844,7 +844,7 @@ window.navigate = function navigate(input) {
   if (!raw) return;
   document.getElementById("iframeUrlBar").value = raw;
   // Use Scramjet if ready, otherwise fall back to direct iframe
-  const proxiedUrl = "/scramjet/scramjet.html#" + encodeURIComponent(raw);
+  const proxiedUrl = “/scramjet/“ + encodeURIComponent(raw);
   document.getElementById("proxyFrame").src = proxiedUrl;
   document.getElementById("iframeWrap").classList.add("visible");
   document.getElementById("gamesSection").classList.remove("visible");
