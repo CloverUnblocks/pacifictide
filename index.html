@@ -470,26 +470,6 @@ footer{
   </div>
 </section>
 
-<!-- PROXY BAR (home state) -->
-<div class="proxy-section" id="proxySection">
-  <div class="proxy-bar">
-    <div class="proxy-nav">
-      <button onclick="document.getElementById('proxyFrame').history ? document.getElementById('proxyFrame').contentWindow.history.back() : null">&#8592;</button>
-      <button onclick="document.getElementById('proxyFrame').history ? document.getElementById('proxyFrame').contentWindow.history.forward() : null">&#8594;</button>
-    </div>
-    <input type="text" id="proxyInput" placeholder="Search or enter a URL…" autocomplete="off"
-      onkeydown="if(event.key==='Enter') navigate(this.value)"/>
-    <button onclick="navigate(document.getElementById('proxyInput').value)">&#x2192;</button>
-  </div>
-  <div class="quick-links">
-    <a class="quick-link" onclick="navTo('https://www.google.com');return false;" href="#">Google</a>
-    <a class="quick-link" onclick="navTo('https://www.youtube.com');return false;" href="#">YouTube</a>
-    <a class="quick-link" onclick="navTo('https://www.github.com');return false;" href="#">GitHub</a>
-    <a class="quick-link" onclick="navTo('https://www.reddit.com');return false;" href="#">Reddit</a>
-    <a class="quick-link" onclick="navTo('https://www.wikipedia.org');return false;" href="#">Wikipedia</a>
-  </div>
-</div>
-
 <!-- GAMES SECTION -->
 <section id="gamesSection">
   <div class="section-header">
@@ -844,11 +824,12 @@ window.navigate = function navigate(input) {
   if (!raw) return;
   document.getElementById("iframeUrlBar").value = raw;
   // Use Scramjet if ready, otherwise fall back to direct iframe
-  const proxiedUrl = "/scramjet/" + raw;
+  const proxiedUrl = window._scramjetReady
+    ? "/scramjet/scramjet.html#" + encodeURIComponent(raw)
+    : raw;
   document.getElementById("proxyFrame").src = proxiedUrl;
   document.getElementById("iframeWrap").classList.add("visible");
   document.getElementById("gamesSection").classList.remove("visible");
-  document.getElementById("proxySection").style.display = "";
 }
 
 // ── NAV (exposed globally for onclick handlers) ──
@@ -861,10 +842,8 @@ window.doHome = function doHome() {
   document.getElementById("iframeWrap").classList.remove("visible");
   document.getElementById("gamesSection").classList.remove("visible");
   document.getElementById("heroSection").style.display = "";
-  document.getElementById("proxySection").style.display = "";
   document.getElementById("topbarSearchWrap").style.display = "none";
   document.getElementById("proxyFrame").src = "";
-  document.getElementById("proxyInput").value = "";
   setActiveNav("home");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -872,10 +851,8 @@ window.showGames = function showGames() {
   document.getElementById("iframeWrap").classList.remove("visible");
   document.getElementById("gamesSection").classList.add("visible");
   document.getElementById("heroSection").style.display = "none";
-  document.getElementById("proxySection").style.display = "none";
   document.getElementById("topbarSearchWrap").style.display = "";
   setActiveNav("games");
-  document.getElementById("proxyInput").value = "";
   render(GAMES);
 }
 window.navTo = function navTo(url) {
@@ -928,7 +905,7 @@ document.getElementById("overlayFull").addEventListener("click", function() {
 document.getElementById("iframeClose").addEventListener("click", () => {
   document.getElementById("proxyFrame").src = "";
   document.getElementById("iframeWrap").classList.remove("visible");
-  showGames();
+  doHome();
 });
 document.getElementById("proxyMin").addEventListener("click", function() {
   const src = document.getElementById("proxyFrame").src;
@@ -1018,19 +995,47 @@ document.getElementById("miniPlayer").addEventListener("click", function() {
 </script>
 
 <script>
+// ── Scramjet Service Worker + Wisp Transport ──
 (async function() {
-  if (!("serviceWorker" in navigator)) return;
+  if (!("serviceWorker" in navigator)) {
+    console.warn("Service workers not supported");
+    window._scramjetReady = false;
+    return;
+  }
   try {
-    await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", {
-      scope: "/scramjet/"
+    // Register the service worker
+    const reg = await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", {
+      scope: "/"
     });
+    console.log("Scramjet SW registered:", reg.scope);
     await navigator.serviceWorker.ready;
-    window._scramjetReady = true;
+
+    // Wait for ScramjetController to be available
+    if (typeof ScramjetController !== "undefined") {
+      const controller = new ScramjetController({
+        prefix: "/scramjet/scramjet.html",
+        files: {
+          wasm: "/scramjet/scramjet.wasm.wasm",
+          worker: "/scramjet/scramjet.sync.js",
+          client: "/scramjet/scramjet.all.js",
+        }
+      });
+      await controller.init();
+      await controller.setTransport("/scramjet/scramjet.bundle.js", [{
+        wisp: "wss://proxy.pacifictide.online/wisp/"
+      }]);
+      window._scramjetController = controller;
+      window._scramjetReady = true;
+      console.log("Scramjet ready!");
+    } else {
+      window._scramjetReady = true;
+      console.log("Scramjet SW ready (no controller)!");
+    }
   } catch(e) {
-    console.error("Scramjet failed:", e);
+    console.error("Scramjet init failed:", e);
+    window._scramjetReady = false;
   }
 })();
 </script>
-
 </body>
 </html>
