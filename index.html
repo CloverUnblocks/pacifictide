@@ -435,7 +435,7 @@ footer{
   padding:60px 24px;color:var(--muted);font-size:.95rem;
 }
 </style>
-<script src="/scramjet/scramjet.bundle.js"></script>
+<script src="/scram/scramjet.bundle.js"></script>
 </head>
 <body>
 <canvas id="particleCanvas"></canvas>
@@ -1020,7 +1020,7 @@ import { EpoxyClient } from "/epoxy/index.mjs";
     return;
   }
   try {
-    const reg = await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", { scope: "/" });
+    const reg = await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", { scope: "/scramjet/" });
     console.log("SW registered:", reg.scope);
     await navigator.serviceWorker.ready;
 
