@@ -1012,7 +1012,6 @@ document.getElementById("miniPlayer").addEventListener("click", function() {
 <script type="module">
 // ── Scramjet Service Worker + Wisp Transport ──
 import { BareMuxConnection } from "/baremux/index.mjs";
-import { EpoxyClient } from "/epoxy/index.mjs";
 
 (async function() {
   if (!("serviceWorker" in navigator)) {
@@ -1025,7 +1024,7 @@ import { EpoxyClient } from "/epoxy/index.mjs";
     await navigator.serviceWorker.ready;
 
     // Set epoxy as the bare-mux transport
-    const conn = new BareMuxConnection("/baremux/index.mjs");
+    const conn = new BareMuxConnection("/baremux/worker.js");
     await conn.setTransport("/epoxy/index.mjs", [{ wisp: "wss://proxy.pacifictide.online/wisp/" }]);
     console.log("Bare-mux transport set!");
 
