@@ -8,13 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --bg: #f9fbff; 
+  /* Chillday-style Palette */
+  --bg: #f8fafc; 
   --card: #ffffff;
-  --text: #1a1c20;
-  --muted: #718096;
-  --accent: #5e81f4; 
-  --accent-soft: #edf2ff;
-  --border: #edf2f7;
+  --text: #1e293b;
+  --muted: #64748b;
+  --accent: #6366f1; 
+  --accent-soft: #eef2ff;
+  --border: #e2e8f0;
   --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
 }
 
@@ -31,7 +32,7 @@ body{
 .topbar {
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 5%; height: 70px;
+  padding: 0 5%; height: 75px;
   background: rgba(255,255,255,0.8);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -39,14 +40,14 @@ body{
 
 .brand-name {
   font-family: "Outfit", sans-serif;
-  font-weight: 800; font-size: 1.4rem;
+  font-weight: 800; font-size: 1.5rem;
   color: var(--text); letter-spacing: -0.03em;
   cursor: pointer;
 }
 
-.nav-links { display: flex; gap: 10px; }
+.nav-links { display: flex; gap: 8px; }
 .nav-btn {
-  padding: 10px 20px; border: none; border-radius: 12px;
+  padding: 10px 20px; border: none; border-radius: 14px;
   cursor: pointer; font-family: inherit; font-weight: 500;
   color: var(--muted); background: transparent; transition: 0.2s;
 }
@@ -55,25 +56,26 @@ body{
 
 /* HERO SECTION */
 .hero {
-  padding: 80px 24px; text-align: center;
-  max-width: 900px; margin: 0 auto;
+  padding: 100px 24px; text-align: center;
+  max-width: 800px; margin: 0 auto;
 }
 .hero h1 {
   font-family: "Outfit", sans-serif;
-  font-weight: 800; font-size: clamp(2.5rem, 8vw, 4.5rem);
-  color: var(--text); letter-spacing: -0.05em; margin-bottom: 20px;
+  font-weight: 800; font-size: clamp(2.5rem, 8vw, 4rem);
+  color: var(--text); letter-spacing: -0.05em; margin-bottom: 16px;
 }
 .hero p { color: var(--muted); font-size: 1.2rem; margin-bottom: 40px; }
 
-.search-box {
+/* SEARCH BOX */
+.search-container {
   display: flex; align-items: center;
   background: var(--card); padding: 10px;
   border-radius: 24px; box-shadow: var(--shadow);
-  border: 1px solid var(--border); margin: 0 auto; max-width: 600px;
+  border: 1px solid var(--border); max-width: 600px; margin: 0 auto;
 }
-.search-box input {
+.search-container input {
   flex: 1; border: none; outline: none;
-  padding: 15px 25px; font-size: 1.1rem;
+  padding: 15px 20px; font-size: 1.1rem;
   background: transparent; color: var(--text);
 }
 .go-btn {
@@ -83,33 +85,27 @@ body{
 }
 .go-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-/* GAMES GRID */
-#gamesSection { padding: 40px 5%; display: none; }
-.section-head { margin-bottom: 30px; }
-.section-head h2 { font-family: "Outfit", sans-serif; font-size: 1.8rem; }
-
+/* GAMES SECTION */
+#gamesSection { padding: 40px 5%; display: none; max-width: 1200px; margin: 0 auto; }
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
 }
 
 .game-card {
-  background: var(--card); border-radius: 28px;
-  padding: 12px; border: 1px solid var(--border);
-  box-shadow: var(--shadow); transition: 0.3s;
+  background: var(--card); border-radius: 24px;
+  padding: 15px; border: 1px solid var(--border);
+  box-shadow: var(--shadow); transition: 0.3s ease;
   cursor: pointer; text-align: center;
 }
-.game-card:hover { transform: scale(1.04); border-color: var(--accent); }
-.thumb-placeholder {
-  width: 100%; aspect-ratio: 1; border-radius: 20px;
+.game-card:hover { transform: scale(1.05); border-color: var(--accent); }
+.game-thumb {
+  width: 100%; aspect-ratio: 1; border-radius: 16px;
   background: var(--accent-soft); display: flex;
   align-items: center; justify-content: center;
-  font-weight: 600; color: var(--accent); font-size: 0.9rem;
-  margin-bottom: 12px; padding: 10px;
+  font-weight: 600; color: var(--accent); margin-bottom: 12px;
 }
-.game-title { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 4px; }
-.game-type { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
 
 /* PROXY IFRAME */
 #iframeWrap {
@@ -121,12 +117,11 @@ body{
   background: #fff; border-bottom: 1px solid var(--border); gap: 15px;
 }
 .proxy-frame { flex:1; border:none; background: #fff; }
+
 .exit-btn {
   padding: 8px 16px; border-radius: 10px; border: 1px solid var(--border);
-  background: #f1f1f1; cursor: pointer; font-weight: 600;
+  background: #f1f5f9; cursor: pointer; font-weight: 600;
 }
-
-footer { text-align: center; padding: 60px 0; color: var(--muted); font-size: 0.9rem; }
 </style>
 
 <script src="/scramjet/scramjet.controller.js" type="module"></script>
@@ -142,67 +137,42 @@ footer { text-align: center; padding: 60px 0; color: var(--muted); font-size: 0.
 </header>
 
 <section class="hero" id="heroSection">
-  <h1>The internet, <br/>unfiltered.</h1>
-  <p>A simple, human space to browse and play.</p>
-  <div class="search-box">
-    <input type="text" id="urlInput" placeholder="Search Google or enter a URL..." autocomplete="off"/>
+  <h1>Browse simply.</h1>
+  <p>A clean, human-first space for the web.</p>
+  <div class="search-container">
+    <input type="text" id="urlInput" placeholder="Enter a URL or search..." autocomplete="off"/>
     <button class="go-btn" id="goBtn">Launch</button>
   </div>
 </section>
 
 <section id="gamesSection">
-  <div class="section-head">
-    <h2 id="gamesCount">Preserved Classics</h2>
-  </div>
+  <h2 style="margin-bottom:20px; font-family:'Outfit';">The Collection</h2>
   <div class="games-grid" id="gamesGrid"></div>
 </section>
 
 <div id="iframeWrap">
   <div class="iframe-nav">
     <button class="exit-btn" onclick="doHome()">Close</button>
-    <input id="urlBar" style="flex:1; border:none; background:#f7f7f7; padding:10px 15px; border-radius:12px; font-size:0.9rem;" readonly/>
+    <input id="urlBar" style="flex:1; border:none; background:#f1f5f9; padding:10px; border-radius:10px;" readonly/>
   </div>
   <iframe class="proxy-frame" id="proxyFrame"></iframe>
 </div>
 
-<footer>&copy; 2026 Pacific Tide</footer>
-
 <script type="module">
 import { BareMuxConnection } from "/baremux/index.mjs";
 
-// --- THE COMPLETE GAME LIST ---
-const BASE = 'https://raw.githubusercontent.com/CloverUnblocks/pacifictide/main/games/';
-const AMMAR = 'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/';
-
+// --- GAME DATA ---
 const GAMES = [
-  {title:'Achievement Unlocked', url:AMMAR+'achievement-unlocked.swf', swf:true},
-  {title:'Age of War', url:AMMAR+'age-of-war.swf', swf:true},
-  {title:'Bad Ice Cream 3', url:AMMAR+'bad-ice-cream-3-www-boysplaygame-com.swf', swf:true},
-  {title:'Bloons TD 4', url:AMMAR+'bloons-tower-defence-4.swf', swf:true},
-  {title:'Bloxorz', url:AMMAR+'bloxorz.swf', swf:true},
-  {title:'Bob the Robber', url:AMMAR+'bob-the-robber.swf', swf:true},
-  {title:"Dad 'n Me", url:AMMAR+'dad-n-me.swf', swf:true},
-  {title:'Doom', url:AMMAR+'doom.swf', swf:true},
-  {title:'Duck Life 4', url:AMMAR+'duck-life-4.swf', swf:true},
-  {title:'Henry Stickmin', url:AMMAR+'henry-stickmin-escaping-the-prison.swf', swf:true},
-  {title:'Learn to Fly 2', url:AMMAR+'learn-2-fly.swf', swf:true},
-  {title:"Papa's Pizzeria", url:AMMAR+'papas-pizzeria.swf', swf:true},
-  {title:'Riddle School 3', url:AMMAR+'riddle-school-3.swf', swf:true},
-  {title:'Stick RPG', url:AMMAR+'stick-rpg.swf', swf:true},
-  {title:'Super Mario 63', url:AMMAR+'super-mario-63.swf', swf:true},
-  {title:'The Impossible Quiz', url:AMMAR+'the-impossible-quiz.swf', swf:true},
-  {title:'Electricman 2', url:BASE+'Electricman%202.swf', swf:true},
-  {title:'Fancy Pants 2', url:BASE+'Fancy%20Pants%202.swf', swf:true},
-  {title:'Sonic Flash', url:BASE+'Sonic%20Flash.swf', swf:true},
-  {title:'Tron', url:BASE+'fltron.swf', swf:true},
-  // ... adding more from your original database
-  {title:'Minesweeper', url:AMMAR+'minesweeper.swf', swf:true},
-  {title:'Pac-Man', url:AMMAR+'pacman.swf', swf:true},
-  {title:'Snake', url:AMMAR+'snake.swf', swf:true},
-  {title:'Tetris', url:AMMAR+'tetris.swf', swf:true}
+  {title:'Age of War', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/age-of-war.swf', type:'flash'},
+  {title:'Bloons TD 4', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/bloons-tower-defence-4.swf', type:'flash'},
+  {title:'Doom', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/doom.swf', type:'flash'},
+  {title:'Duck Life 4', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/duck-life-4.swf', type:'flash'},
+  {title:"Papa's Pizzeria", url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/papas-pizzeria.swf', type:'flash'},
+  {title:'Super Mario 63', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/super-mario-63.swf', type:'flash'},
+  {title:'Tron', url:'https://raw.githubusercontent.com/CloverUnblocks/pacifictide/main/games/fltron.swf', type:'flash'}
 ];
 
-// --- NAVIGATION LOGIC ---
+// --- NAVIGATION ---
 window.doHome = () => {
     document.getElementById('heroSection').style.display = 'block';
     document.getElementById('gamesSection').style.display = 'none';
@@ -223,22 +193,16 @@ window.showGames = () => {
 function renderGames() {
     const grid = document.getElementById('gamesGrid');
     grid.innerHTML = "";
-    document.getElementById('gamesCount').innerText = `${GAMES.length} Classics Online`;
-    
     GAMES.forEach(game => {
         const card = document.createElement('div');
         card.className = 'game-card';
-        card.innerHTML = `
-            <div class="thumb-placeholder">${game.title}</div>
-            <div class="game-title">${game.title}</div>
-            <div class="game-type">${game.swf ? 'Flash' : 'HTML5'}</div>
-        `;
+        card.innerHTML = `<div class="game-thumb">Play</div><div style="font-weight:600;">${game.title}</div>`;
         card.onclick = () => launchGame(game);
         grid.appendChild(card);
     });
 }
 
-// --- SCRAMJET ENGINE ---
+// --- SCRAMJET PROXY LOGIC ---
 async function launchProxy(input) {
     let url = input.trim();
     if (!url.includes(".")) url = "https://www.google.com/search?q=" + encodeURIComponent(url);
@@ -259,31 +223,28 @@ async function launchProxy(input) {
 }
 
 function launchGame(game) {
-    if (game.swf) {
-        // Simple Ruffle Launcher
-        document.getElementById("iframeWrap").style.display = "flex";
-        document.getElementById("urlBar").value = game.title;
-        const ifr = document.getElementById("proxyFrame");
-        ifr.src = `https://ruffle.rs/demo/?file=${encodeURIComponent(game.url)}`;
+    document.getElementById("iframeWrap").style.display = "flex";
+    document.getElementById("urlBar").value = game.title;
+    if(game.type === 'flash') {
+        document.getElementById("proxyFrame").src = `https://ruffle.rs/demo/?file=${encodeURIComponent(game.url)}`;
     } else {
         launchProxy(game.url);
     }
 }
 
-// --- INITIALIZATION ---
+// --- INIT SERVICE WORKER ---
 (async function init() {
     if ("serviceWorker" in navigator) {
         try {
             await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", { scope: "/scramjet/" });
             const conn = new BareMuxConnection("/baremux/worker.js");
             await conn.setTransport("/epoxy/index.mjs", [{ wisp: "wss://proxy.pacifictide.online/wisp/" }]);
-        } catch (e) { console.error("SW Registration failed", e); }
+        } catch (e) { console.error("Worker error:", e); }
     }
 })();
 
 document.getElementById("goBtn").onclick = () => launchProxy(document.getElementById("urlInput").value);
 document.getElementById("urlInput").onkeydown = (e) => { if(e.key === 'Enter') launchProxy(e.target.value); };
-
 </script>
 </body>
 </html>
