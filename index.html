@@ -1,250 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Pacific Tide | Relaxed Browsing</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pacific Tide</title>
 <style>
-:root {
-  /* Chillday-style Palette */
-  --bg: #f8fafc; 
-  --card: #ffffff;
-  --text: #1e293b;
-  --muted: #64748b;
-  --accent: #6366f1; 
-  --accent-soft: #eef2ff;
-  --border: #e2e8f0;
-  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{
-  background: var(--bg);
-  color: var(--text);
-  font-family: "DM Sans", sans-serif;
-  min-height: 100vh;
-  line-height: 1.5;
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+color: #fff;
 }
 
-/* NAVIGATION */
-.topbar {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 5%; height: 75px;
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+header {
+background: rgba(0, 0, 0, 0.3);
+padding: 1rem 2rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+backdrop-filter: blur(10px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.brand-name {
-  font-family: "Outfit", sans-serif;
-  font-weight: 800; font-size: 1.5rem;
-  color: var(--text); letter-spacing: -0.03em;
-  cursor: pointer;
+.logo {
+font-size: 1.8rem;
+font-weight: bold;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+transition: transform 0.3s ease;
 }
 
-.nav-links { display: flex; gap: 8px; }
-.nav-btn {
-  padding: 10px 20px; border: none; border-radius: 14px;
-  cursor: pointer; font-family: inherit; font-weight: 500;
-  color: var(--muted); background: transparent; transition: 0.2s;
+.logo:hover {
+transform: scale(1.05);
 }
-.nav-btn:hover { color: var(--text); background: var(--accent-soft); }
-.nav-btn.active { color: var(--accent); background: var(--accent-soft); }
 
-/* HERO SECTION */
+.logo::before {
+content: "🌊";
+font-size: 2rem;
+}
+
+nav {
+display: flex;
+gap: 2rem;
+}
+
+nav a {
+color: #fff;
+text-decoration: none;
+padding: 0.5rem 1rem;
+border-radius: 8px;
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
+
+nav a::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: rgba(255, 255, 255, 0.2);
+transition: left 0.3s ease;
+z-index: -1;
+}
+
+nav a:hover::before {
+left: 0;
+}
+
+nav a:hover {
+background: rgba(255, 255, 255, 0.1);
+transform: translateY(-2px);
+}
+
+nav a:active {
+transform: translateY(0);
+}
+
+main {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 2rem;
+}
+
 .hero {
-  padding: 100px 24px; text-align: center;
-  max-width: 800px; margin: 0 auto;
+text-align: center;
+margin-bottom: 3rem;
 }
+
 .hero h1 {
-  font-family: "Outfit", sans-serif;
-  font-weight: 800; font-size: clamp(2.5rem, 8vw, 4rem);
-  color: var(--text); letter-spacing: -0.05em; margin-bottom: 16px;
+font-size: 3.5rem;
+margin-bottom: 1rem;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+animation: fadeInDown 0.8s ease;
 }
-.hero p { color: var(--muted); font-size: 1.2rem; margin-bottom: 40px; }
 
-/* SEARCH BOX */
+.hero p {
+font-size: 1.3rem;
+opacity: 0.9;
+animation: fadeInUp 0.8s ease;
+}
+
 .search-container {
-  display: flex; align-items: center;
-  background: var(--card); padding: 10px;
-  border-radius: 24px; box-shadow: var(--shadow);
-  border: 1px solid var(--border); max-width: 600px; margin: 0 auto;
-}
-.search-container input {
-  flex: 1; border: none; outline: none;
-  padding: 15px 20px; font-size: 1.1rem;
-  background: transparent; color: var(--text);
-}
-.go-btn {
-  padding: 15px 35px; background: var(--text); color: white;
-  border: none; border-radius: 18px; font-weight: 600;
-  cursor: pointer; transition: 0.3s;
-}
-.go-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-/* GAMES SECTION */
-#gamesSection { padding: 40px 5%; display: none; max-width: 1200px; margin: 0 auto; }
-.games-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 20px;
+width: 100%;
+max-width: 700px;
+margin-bottom: 3rem;
+animation: fadeIn 1s ease;
 }
 
-.game-card {
-  background: var(--card); border-radius: 24px;
-  padding: 15px; border: 1px solid var(--border);
-  box-shadow: var(--shadow); transition: 0.3s ease;
-  cursor: pointer; text-align: center;
-}
-.game-card:hover { transform: scale(1.05); border-color: var(--accent); }
-.game-thumb {
-  width: 100%; aspect-ratio: 1; border-radius: 16px;
-  background: var(--accent-soft); display: flex;
-  align-items: center; justify-content: center;
-  font-weight: 600; color: var(--accent); margin-bottom: 12px;
+.search-box {
+display: flex;
+background: rgba(255, 255, 255, 0.95);
+border-radius: 50px;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+transition: all 0.3s ease;
 }
 
-/* PROXY IFRAME */
-#iframeWrap {
-  display:none; position:fixed; inset:0; z-index:1000;
-  flex-direction:column; background:white;
+.search-box:hover {
+box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+transform: translateY(-2px);
 }
-.iframe-nav {
-  display:flex; align-items:center; padding:0 20px; height:60px;
-  background: #fff; border-bottom: 1px solid var(--border); gap: 15px;
-}
-.proxy-frame { flex:1; border:none; background: #fff; }
 
-.exit-btn {
-  padding: 8px 16px; border-radius: 10px; border: 1px solid var(--border);
-  background: #f1f5f9; cursor: pointer; font-weight: 600;
+.search-box input {
+flex: 1;
+padding: 1.2rem 1.5rem;
+border: none;
+outline: none;
+font-size: 1rem;
+color: #333;
+}
+
+.search-box button {
+padding: 1.2rem 2rem;
+border: none;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: #fff;
+font-size: 1rem;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
+
+.search-box button::before {
+content: '';
+position: absolute;
+top: 50%;
+left: 50%;
+width: 0;
+height: 0;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.3);
+transform: translate(-50%, -50%);
+transition: width 0.5s, height 0.5s;
+}
+
+.search-box button:hover::before {
+width: 300px;
+height: 300px;
+}
+
+.search-box button:hover {
+background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.search-box button:active {
+transform: scale(0.95);
+}
+
+.features {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 2rem;
+width: 100%;
+max-width: 1200px;
+animation: fadeInUp 1.2s ease;
+}
+
+.feature-card {
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(10px);
+padding: 2rem;
+border-radius: 15px;
+text-align: center;
+transition: all 0.3s ease;
+cursor: pointer;
+border: 2px solid transparent;
+}
+
+.feature-card:hover {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-10px);
+border-color: rgba(255, 255, 255, 0.3);
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card:active {
+transform: translateY(-5px);
+}
+
+.feature-icon {
+font-size: 3rem;
+margin-bottom: 1rem;
+transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+transform: scale(1.2) rotate(5deg);
+}
+
+.feature-card h3 {
+font-size: 1.5rem;
+margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+opacity: 0.9;
+font-size: 0.95rem;
+}
+
+footer {
+background: rgba(0, 0, 0, 0.3);
+padding: 1.5rem 2rem;
+text-align: center;
+backdrop-filter: blur(10px);
+}
+
+footer p {
+opacity: 0.8;
+}
+
+@keyframes fadeInDown {
+from {
+opacity: 0;
+transform: translateY(-30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+@keyframes fadeInUp {
+from {
+opacity: 0;
+transform: translateY(30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+@keyframes fadeIn {
+from {
+opacity: 0;
+}
+to {
+opacity: 1;
+}
+}
+
+@media (max-width: 768px) {
+.hero h1 {
+font-size: 2.5rem;
+}
+
+nav {
+gap: 1rem;
+}
+
+nav a {
+padding: 0.4rem 0.8rem;
+font-size: 0.9rem;
+}
+
+.features {
+grid-template-columns: 1fr;
+}
 }
 </style>
-
-<script src="/scramjet/scramjet.controller.js" type="module"></script>
 </head>
 <body>
-
-<header class="topbar">
-  <div class="brand-name" onclick="doHome()">Pacific Tide</div>
-  <div class="nav-links">
-    <button class="nav-btn active" id="btn-home" onclick="doHome()">Home</button>
-    <button class="nav-btn" id="btn-games" onclick="showGames()">Games</button>
-  </div>
+<header>
+<div class="logo">Pacific Tide</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#games">Games</a>
+<a href="#proxy">Proxy</a>
+<a href="#about">About</a>
+</nav>
 </header>
 
-<section class="hero" id="heroSection">
-  <h1>Browse simply.</h1>
-  <p>A clean, human-first space for the web.</p>
-  <div class="search-container">
-    <input type="text" id="urlInput" placeholder="Enter a URL or search..." autocomplete="off"/>
-    <button class="go-btn" id="goBtn">Launch</button>
-  </div>
-</section>
-
-<section id="gamesSection">
-  <h2 style="margin-bottom:20px; font-family:'Outfit';">The Collection</h2>
-  <div class="games-grid" id="gamesGrid"></div>
-</section>
-
-<div id="iframeWrap">
-  <div class="iframe-nav">
-    <button class="exit-btn" onclick="doHome()">Close</button>
-    <input id="urlBar" style="flex:1; border:none; background:#f1f5f9; padding:10px; border-radius:10px;" readonly/>
-  </div>
-  <iframe class="proxy-frame" id="proxyFrame"></iframe>
+<main>
+<div class="hero">
+<h1>Welcome to Pacific Tide</h1>
+<p>Your gateway to unrestricted browsing</p>
 </div>
 
-<script type="module">
-import { BareMuxConnection } from "/baremux/index.mjs";
+<div class="search-container">
+<div class="search-box">
+<input type="text" placeholder="Enter URL or search the web..." id="searchInput">
+<button type="button" id="searchBtn">Go</button>
+</div>
+</div>
 
-// --- GAME DATA ---
-const GAMES = [
-  {title:'Age of War', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/age-of-war.swf', type:'flash'},
-  {title:'Bloons TD 4', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/bloons-tower-defence-4.swf', type:'flash'},
-  {title:'Doom', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/doom.swf', type:'flash'},
-  {title:'Duck Life 4', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/duck-life-4.swf', type:'flash'},
-  {title:"Papa's Pizzeria", url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/papas-pizzeria.swf', type:'flash'},
-  {title:'Super Mario 63', url:'https://raw.githubusercontent.com/AmmarSAA/Flash-Games-Directory/main/super-mario-63.swf', type:'flash'},
-  {title:'Tron', url:'https://raw.githubusercontent.com/CloverUnblocks/pacifictide/main/games/fltron.swf', type:'flash'}
-];
+<div class="features">
+<div class="feature-card" id="proxyCard">
+<div class="feature-icon">🔒</div>
+<h3>Secure Proxy</h3>
+<p>Browse safely with Scramjet proxy technology</p>
+</div>
+<div class="feature-card" id="gamesCard">
+<div class="feature-icon">🎮</div>
+<h3>Games</h3>
+<p>Access a collection of unblocked games</p>
+</div>
+<div class="feature-card" id="fastCard">
+<div class="feature-icon">⚡</div>
+<h3>Fast & Reliable</h3>
+<p>Optimized for speed and performance</p>
+</div>
+</div>
+</main>
 
-// --- NAVIGATION ---
-window.doHome = () => {
-    document.getElementById('heroSection').style.display = 'block';
-    document.getElementById('gamesSection').style.display = 'none';
-    document.getElementById('iframeWrap').style.display = 'none';
-    document.getElementById('btn-home').classList.add('active');
-    document.getElementById('btn-games').classList.remove('active');
-    document.getElementById('proxyFrame').src = "";
-};
+<footer>
+<p>&copy; 2024 Pacific Tide. All rights reserved.</p>
+</footer>
 
-window.showGames = () => {
-    document.getElementById('heroSection').style.display = 'none';
-    document.getElementById('gamesSection').style.display = 'block';
-    document.getElementById('btn-home').classList.remove('active');
-    document.getElementById('btn-games').classList.add('active');
-    renderGames();
-};
-
-function renderGames() {
-    const grid = document.getElementById('gamesGrid');
-    grid.innerHTML = "";
-    GAMES.forEach(game => {
-        const card = document.createElement('div');
-        card.className = 'game-card';
-        card.innerHTML = `<div class="game-thumb">Play</div><div style="font-weight:600;">${game.title}</div>`;
-        card.onclick = () => launchGame(game);
-        grid.appendChild(card);
-    });
+<script>
+// Click indicators
+document.getElementById('searchBtn').addEventListener('click', function() {
+const input = document.getElementById('searchInput');
+if (input.value.trim()) {
+console.log('Search/Navigate to:', input.value);
+// Visual feedback
+this.textContent = 'Loading...';
+setTimeout(() => {
+this.textContent = 'Go';
+}, 1000);
 }
+});
 
-// --- SCRAMJET PROXY LOGIC ---
-async function launchProxy(input) {
-    let url = input.trim();
-    if (!url.includes(".")) url = "https://www.google.com/search?q=" + encodeURIComponent(url);
-    else if (!/^https?:\/\//.test(url)) url = "https://" + url;
-
-    document.getElementById("urlBar").value = url;
-    document.getElementById("iframeWrap").style.display = "flex";
-
-    const { ScramjetController } = await import("/scramjet/scramjet.controller.js");
-    const scram = new ScramjetController({
-        prefix: "/scramjet/",
-        files: { wasm: "/scramjet/scramjet.wasm.wasm", all: "/scramjet/scramjet.all.js" }
-    });
-
-    await scram.init();
-    const frame = scram.createFrame(document.getElementById("proxyFrame"));
-    frame.go(url);
+document.getElementById('searchInput').addEventListener('keypress', function(e) {
+if (e.key === 'Enter') {
+document.getElementById('searchBtn').click();
 }
+});
 
-function launchGame(game) {
-    document.getElementById("iframeWrap").style.display = "flex";
-    document.getElementById("urlBar").value = game.title;
-    if(game.type === 'flash') {
-        document.getElementById("proxyFrame").src = `https://ruffle.rs/demo/?file=${encodeURIComponent(game.url)}`;
-    } else {
-        launchProxy(game.url);
-    }
-}
+document.getElementById('proxyCard').addEventListener('click', function() {
+console.log('Proxy card clicked');
+});
 
-// --- INIT SERVICE WORKER ---
-(async function init() {
-    if ("serviceWorker" in navigator) {
-        try {
-            await navigator.serviceWorker.register("/scramjet/scramjet.sw.js", { scope: "/scramjet/" });
-            const conn = new BareMuxConnection("/baremux/worker.js");
-            await conn.setTransport("/epoxy/index.mjs", [{ wisp: "wss://proxy.pacifictide.online/wisp/" }]);
-        } catch (e) { console.error("Worker error:", e); }
-    }
-})();
+document.getElementById('gamesCard').addEventListener('click', function() {
+console.log('Games card clicked');
+});
 
-document.getElementById("goBtn").onclick = () => launchProxy(document.getElementById("urlInput").value);
-document.getElementById("urlInput").onkeydown = (e) => { if(e.key === 'Enter') launchProxy(e.target.value); };
+document.getElementById('fastCard').addEventListener('click', function() {
+console.log('Fast card clicked');
+});
+
+// Nav link click indicators
+document.querySelectorAll('nav a').forEach(link => {
+link.addEventListener('click', function(e) {
+e.preventDefault();
+console.log('Navigation clicked:', this.textContent);
+});
+});
 </script>
 </body>
 </html>
